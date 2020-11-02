@@ -156,6 +156,12 @@ class Parsing(object):
                 idx.append(i)
         
         return idx
+    
+    def config_ready(self):
+        if (self.json_raw != None) and (self.conf_json_raw != None):
+            return True
+        else: 
+            return False
 
 
         

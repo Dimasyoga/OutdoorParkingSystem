@@ -203,7 +203,11 @@ if __name__ == "__main__":
 
     camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
     systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
-    time.sleep(4)
+    
+    while not pars.config_ready():
+        print("wait for config...\n")
+        time.sleep(1)
+    
     print(f"start_time: {pars.get_start_time()}\nend_time: {pars.get_end_time()}\nupdate_rate: {pars.get_update_rate()}\ncam_timeout: {pars.get_cam_timeout()}\nfree_threshold: {pars.get_free_threshold()}")
     all_sleep = False
     keyboard.on_press_key("q", exit_callback)
@@ -222,6 +226,7 @@ if __name__ == "__main__":
                 time.sleep(pars.get_update_rate() - (end-start))
             
         elif not all_sleep:
+            print("Shutdown start")
             duration = get_hour_to(pars.get_start_time()-1)
             res = start_request("shutdown", range(len(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
             pars.input_status(res)
