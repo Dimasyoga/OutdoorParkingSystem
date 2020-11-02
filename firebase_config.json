@@ -1,0 +1,12 @@
+{
+    "config":{
+        "apiKey": "AIzaSyBBVGil8DkEbtWdm1t8lh-s6y-I4Nb5O2g",
+        "authDomain": "smart-parking-guidance.firebaseapp.com",
+        "databaseURL": "https://smart-parking-guidance.firebaseio.com",
+        "storageBucket": "smart-parking-guidance.appspot.com"
+    },
+    "credential":{
+        "email":"dimyog7@gmail.com",
+        "password":"firebase"
+    }
+}
