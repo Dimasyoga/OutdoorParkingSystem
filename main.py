@@ -227,9 +227,7 @@ if __name__ == "__main__":
         elif not all_sleep:
             print("Shutdown start")
             duration = get_hour_to(pars.get_start_time()-1)
-            count = 0
-            if not pars.all_cam_true() and (count < 10):
-                count = count + 1
+            if not pars.all_cam_true():
                 duration = get_hour_to(pars.get_start_time()-1)
                 print(f"Sleep duration {duration} Hour")
                 res = start_request("shutdown", range(len(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
