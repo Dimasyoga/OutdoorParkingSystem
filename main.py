@@ -48,7 +48,6 @@ terminate = False
 async def shutdown(index, url, duration, cam_timeout):
     status = False
     headers = {'time': str(duration)}
-    print(headers)
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
         try:
             async with session.get(url[index]+"/shutdown", headers=headers) as response:
@@ -58,13 +57,13 @@ async def shutdown(index, url, duration, cam_timeout):
     
             
         except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
+            print(f"HTTP error occurred: {url[index]} {http_err}")
         
         except aiohttp.ClientConnectorError as e:
-            print('Connection Error', str(e))
+            print(f'Connection Error {url[index]} {str(e)}')
             
         except Exception as err:
-            print(f"An error ocurred: {err}")
+            print(f"An error ocurred: {url[index]} {err}")
         
         return index, status, 0
 
@@ -84,13 +83,13 @@ async def capture(index, url, mask, cam_timeout, free_threshold):
     
             
         except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
+            print(f"HTTP error occurred: {url[index]} {http_err}")
         
         except aiohttp.ClientConnectorError as e:
-            print('Connection Error', str(e))
+            print(f'Connection Error {url[index]} {str(e)}')
             
         except Exception as err:
-            print(f"An error ocurred: {err}")
+            print(f"An error ocurred: {url[index]} {err}")
         
         # image = np.zeros((1600, 1200, 3), dtype="uint8")
         # time.sleep(random.uniform(0.5, 1.0))
@@ -213,7 +212,7 @@ if __name__ == "__main__":
     keyboard.on_press_key("q", exit_callback)
 
     while not terminate:
-        if not (time.localtime().tm_hour >= pars.get_end_time() and time.localtime().tm_hour <= pars.get_start_time()):
+        if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour <= pars.get_start_time()):
             print("work time")
             all_sleep = False
             start = time.time()
@@ -228,20 +227,18 @@ if __name__ == "__main__":
         elif not all_sleep:
             print("Shutdown start")
             duration = get_hour_to(pars.get_start_time()-1)
-            res = start_request("shutdown", range(len(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
-            pars.input_status(res)
-            db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
-
             count = 0
-            while not pars.all_cam_true() and (count < 10):
+            if not pars.all_cam_true() and (count < 10):
                 count = count + 1
                 duration = get_hour_to(pars.get_start_time()-1)
+                print(f"Sleep duration {duration} Hour")
                 res = start_request("shutdown", range(len(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
                 pars.input_status(res)
                 db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
                 time.sleep(5)
-            
-            all_sleep = True
+            else:
+                all_sleep = True
+                print("system sleep")
     
     print("Program shutdown")
     keyboard.unhook_all()
