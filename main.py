@@ -215,7 +215,11 @@ if __name__ == "__main__":
     while not terminate:
         if time.time() > (last + 3000):
             last = time.time()
+            camConfig_stream.close()
+            systemConfig_stream.close()
             user = auth.refresh(user['refreshToken'])
+            camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+            systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour <= pars.get_start_time()):
             print("work time")
