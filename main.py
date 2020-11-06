@@ -209,9 +209,14 @@ if __name__ == "__main__":
     
     print(f"start_time: {pars.get_start_time()}\nend_time: {pars.get_end_time()}\nupdate_rate: {pars.get_update_rate()}\ncam_timeout: {pars.get_cam_timeout()}\nfree_threshold: {pars.get_free_threshold()}")
     all_sleep = False
+    last = time.time()
     keyboard.on_press_key("q", exit_callback)
 
     while not terminate:
+        if time.time() > (last + 3000):
+            last = time.time()
+            user = auth.refresh(user['refreshToken'])
+        
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour <= pars.get_start_time()):
             print("work time")
             all_sleep = False
