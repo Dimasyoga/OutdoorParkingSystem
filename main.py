@@ -213,6 +213,8 @@ if __name__ == "__main__":
     keyboard.on_press_key("q", exit_callback)
 
     while not terminate:
+        start = time.time()
+
         if time.time() > (last + 3000):
             last = time.time()
             camConfig_stream.close()
@@ -224,14 +226,9 @@ if __name__ == "__main__":
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour <= pars.get_start_time()):
             print("work time")
             all_sleep = False
-            start = time.time()
             print("start process")
             print(f"Process time is {timeit.timeit(main, number=1)}")
             db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
-            end = time.time()
-            print(f"Total time for update: {end-start}")
-            if ((end-start) < pars.get_update_rate()):
-                time.sleep(pars.get_update_rate() - (end-start))
             
         elif not all_sleep:
             print("Shutdown start")
@@ -242,10 +239,15 @@ if __name__ == "__main__":
                 res = start_request("shutdown", range(len(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
                 pars.input_status(res)
                 db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
-                time.sleep(5)
             else:
                 all_sleep = True
                 print("system sleep")
+        
+        end = time.time()
+        print(f"Total time for update: {end-start}")
+        
+        if ((end-start) < pars.get_update_rate()):
+            time.sleep(pars.get_update_rate() - (end-start))
     
     print("Program shutdown")
     keyboard.unhook_all()
