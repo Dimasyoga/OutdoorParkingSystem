@@ -223,7 +223,7 @@ if __name__ == "__main__":
             camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
-        if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour <= pars.get_start_time()):
+        if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
             print("work time")
             all_sleep = False
             print("start process")
