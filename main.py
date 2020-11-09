@@ -236,7 +236,7 @@ if __name__ == "__main__":
             if not pars.all_cam_true():
                 duration = get_hour_to(pars.get_start_time()-1)
                 print(f"Sleep duration {duration} Hour")
-                res = start_request("shutdown", range(len(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
+                res = start_request("shutdown", pars.get_false_cam_index(), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
                 pars.input_status(res)
                 db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
             else:
