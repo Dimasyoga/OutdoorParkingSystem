@@ -72,27 +72,28 @@ async def capture(index, url, mask, cam_timeout, free_threshold):
     status = False
     free_space = 0
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
-        try:
-            async with session.get(url[index]+"/capture") as response:
-                # response.raise_for_status()
-                if (response.status == 200):
-                    print(f"Response status ({url[index]}): {response.status}")
-                    image = np.asarray(bytearray(await response.read()), dtype="uint8")
-                    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-                    status = True
+        # try:
+        #     async with session.get(url[index]+"/capture") as response:
+        #         # response.raise_for_status()
+        #         if (response.status == 200):
+        #             print(f"Response status ({url[index]}): {response.status}")
+        #             image = np.asarray(bytearray(await response.read()), dtype="uint8")
+        #             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+        #             status = True
     
             
-        except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {url[index]} {http_err}")
+        # except requests.exceptions.HTTPError as http_err:
+        #     print(f"HTTP error occurred: {url[index]} {http_err}")
         
-        except aiohttp.ClientConnectorError as e:
-            print(f'Connection Error {url[index]} {str(e)}')
+        # except aiohttp.ClientConnectorError as e:
+        #     print(f'Connection Error {url[index]} {str(e)}')
             
-        except Exception as err:
-            print(f"An error ocurred: {url[index]} {err}")
+        # except Exception as err:
+        #     print(f"An error ocurred: {url[index]} {err}")
         
-        # image = np.zeros((1600, 1200, 3), dtype="uint8")
-        # time.sleep(random.uniform(0.5, 1.0))
+        image = np.zeros((1600, 1200, 3), dtype="uint8")
+        time.sleep(random.uniform(0.6, 0.7))
+        status = True
 
         if status:
             pre.setMask(mask[index])
@@ -138,11 +139,21 @@ def get_hour_to(end):
     else:
         return delta
 
+def main_single_core():
+    cam_addr_list = pars.get_url()
+    maskParam = pars.get_masking()
+
+    result = start_request("capture", range(len(cam_addr_list)), cam_addr_list, mask=maskParam, cam_timeout=pars.get_cam_timeout(), free_threshold=pars.get_free_threshold())
+
+    print(f"result: {result}")
+    pars.input_status(result)
+
 def main():
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
 
-    NUM_CORES = cpu_count() # Our number of CPU cores (including logical cores)
+    NUM_CORES = cpu_count()
+    # NUM_CORES = 1
     NUM_URL = len(cam_addr_list)
     URL_PER_CORE = floor(NUM_URL / NUM_CORES)
     REMAINDER = NUM_URL % NUM_CORES
@@ -227,7 +238,8 @@ if __name__ == "__main__":
             print("work time")
             all_sleep = False
             print("start process")
-            print(f"Process time is {timeit.timeit(main, number=1)}")
+            # print(f"Process time is {timeit.timeit(main, number=1)}")
+            print(f"Process time is {timeit.timeit(main_single_core, number=1)}")
             db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
             
         elif not all_sleep:
