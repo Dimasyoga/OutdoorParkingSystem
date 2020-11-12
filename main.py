@@ -68,10 +68,10 @@ async def shutdown(index, url, duration, cam_timeout):
         return index, status, 0
 
 
-async def capture(index, url, mask, cam_timeout, free_threshold):
+async def capture(session, index, url, mask, cam_timeout, free_threshold):
     status = False
     free_space = 0
-    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
+    
         # try:
         #     async with session.get(url[index]+"/capture") as response:
         #         # response.raise_for_status()
@@ -91,33 +91,36 @@ async def capture(index, url, mask, cam_timeout, free_threshold):
         # except Exception as err:
         #     print(f"An error ocurred: {url[index]} {err}")
         
-        image = np.zeros((1600, 1200, 3), dtype="uint8")
-        time.sleep(random.uniform(0.6, 0.7))
-        status = True
+    image = np.zeros((1600, 1200, 3), dtype="uint8")
+    time.sleep(random.uniform(0.6, 0.7))
+    status = True
 
-        if status:
-            pre.setMask(mask[index])
-            pre.setImage(image)
-            crop = pre.getCrop()
+    if status:
+        pre.setMask(mask[index])
+        pre.setImage(image)
+        crop = pre.getCrop()
 
-            for frame in crop:
-                frame = cv2.resize(frame, (input_shape[1], input_shape[2]), interpolation = cv2.INTER_CUBIC)
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame = frame.astype(np.float32)
-                frame = frame / 255.
-                frame = np.expand_dims(frame, 0)
+        for frame in crop:
+            frame = cv2.resize(frame, (input_shape[1], input_shape[2]), interpolation = cv2.INTER_CUBIC)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame = frame.astype(np.float32)
+            frame = frame / 255.
+            frame = np.expand_dims(frame, 0)
 
-                interpreter.set_tensor(input_details[0]['index'], frame)
-                interpreter.invoke()
-                output = interpreter.get_tensor(output_details[0]['index'])
+            interpreter.set_tensor(input_details[0]['index'], frame)
+            interpreter.invoke()
+            output = interpreter.get_tensor(output_details[0]['index'])
 
-                if (output[0][1] > free_threshold):
-                    free_space += 1
+            if (output[0][1] > free_threshold):
+                free_space += 1
 
-        return index, status, free_space
+    return index, status, free_space
         
 async def capture_request(indexs, url, mask, cam_timeout, free_threshold):
-    result = await asyncio.gather(*[capture(i, url, mask, cam_timeout, free_threshold) for i in indexs])
+    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
+        result = await asyncio.gather(*[capture(session, i, url, mask, cam_timeout, free_threshold) for i in indexs])
+        await session.close()
+
     return result
 
 async def shutdown_request(indexs, url, duration, cam_timeout):
@@ -139,7 +142,7 @@ def get_hour_to(end):
     else:
         return delta
 
-def main_single_core():
+def work_single_core():
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
 
@@ -148,7 +151,7 @@ def main_single_core():
     print(f"result: {result}")
     pars.input_status(result)
 
-def main():
+def work():
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
 
@@ -238,22 +241,19 @@ if __name__ == "__main__":
             print("work time")
             all_sleep = False
             print("start process")
-            # print(f"Process time is {timeit.timeit(main, number=1)}")
-            print(f"Process time is {timeit.timeit(main_single_core, number=1)}")
+            print(f"Process time is {timeit.timeit(work, number=1)}")
+            # print(f"Process time is {timeit.timeit(work_single_core, number=1)}")
             db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
             
         elif not all_sleep:
-            print("Shutdown start")
+            print("Sleep time")
             duration = get_hour_to(pars.get_start_time()-1)
-            if not pars.all_cam_true():
-                duration = get_hour_to(pars.get_start_time()-1)
-                print(f"Sleep duration {duration} Hour")
-                res = start_request("shutdown", pars.get_false_cam_index(), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
-                pars.input_status(res)
-                db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
-            else:
-                all_sleep = True
-                print("system sleep")
+            print(f"Sleep duration {duration} Hour")
+            res = start_request("shutdown", list(range(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
+            pars.input_status(res)
+            db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
+            print("system sleep")
+            all_sleep = True
         
         end = time.time()
         print(f"Total time for update: {end-start}")

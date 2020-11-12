@@ -7,14 +7,14 @@ class Parsing(object):
         self.json_raw = None
         self.conf_json_raw = None
         self.parking_lot = {}
-        self.cam_status = []
+        self.cam_available_status = []
         self.free_cam = []
         self.url_list = []
         self.masking_list = []
     
     def update(self):
         self.parking_lot = {}
-        self.cam_status = []
+        self.cam_available_status = []
         self.free_cam = []
         self.url_list = []
         self.masking_list = []
@@ -24,7 +24,7 @@ class Parsing(object):
             for (key, value) in v.items():
                 self.url_list.append(value['url'])
                 self.masking_list.append(value['masking'])
-                self.cam_status.append(False)
+                self.cam_available_status.append(False)
                 self.free_cam.append(0)
         
     def input_config(self, config):
@@ -38,7 +38,7 @@ class Parsing(object):
             for (key, value) in v.items():
                 self.url_list.append(value['url'])
                 self.masking_list.append(value['masking'])
-                self.cam_status.append(False)
+                self.cam_available_status.append(False)
                 self.free_cam.append(0)
 
     def stream_handler(self, message):
@@ -105,10 +105,10 @@ class Parsing(object):
     def input_status(self, inp):
         for idx, stat, free_cam in inp:
             if stat:
-                self.cam_status[idx] = True
+                self.cam_available_status[idx] = True
                 self.free_cam[idx] = free_cam
             else:
-                self.cam_status[idx] = False
+                self.cam_available_status[idx] = False
         
     def get_free_lot_total(self):
         output = {}
@@ -130,7 +130,7 @@ class Parsing(object):
         for (k, v) in self.json_raw.items():
             out = {}
             for (key, value) in v.items():
-                out[key] = {"cam_status": self.cam_status[count],"free_space": self.free_cam[count]}
+                out[key] = {"cam_available_status": self.cam_available_status[count],"free_space": self.free_cam[count]}
                 count = count + 1
             output[k] = out
         
@@ -140,7 +140,7 @@ class Parsing(object):
     
     def all_cam_true(self):
         ret = True
-        for stat in self.cam_status:
+        for stat in self.cam_available_status:
             if not stat:
                 ret = False
         
@@ -151,7 +151,7 @@ class Parsing(object):
         docstring
         """
         idx = []
-        for i, stat in enumerate(self.cam_status):
+        for i, stat in enumerate(self.cam_available_status):
             if not stat:
                 idx.append(i)
         
