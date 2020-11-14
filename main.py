@@ -17,6 +17,7 @@ import time
 import random
 import pyrebase
 import keyboard
+import dpath.util
 
 with open("firebase_config.json", 'r') as f:
     firebase_config = json.load(f)
@@ -46,6 +47,7 @@ terminate = False
 
 async def shutdown(index, url, duration, cam_timeout):
     status = False
+    result = {}
     headers = {'time': str(duration)}
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
         try:
@@ -64,12 +66,13 @@ async def shutdown(index, url, duration, cam_timeout):
         except Exception as err:
             print(f"An error ocurred: {url[index]} {err}")
         
-        return index, status, 0
+        return index, status, result, 0
 
 
-async def capture(session, index, url, mask, cam_timeout, free_threshold):
+async def capture(session, index, url, slot_path, mask, cam_timeout, free_threshold):
     status = False
-    free_space = []
+    result = {}
+    total_free = 0
     
         # try:
         #     async with session.get(url[index]+"/capture") as response:
@@ -99,7 +102,7 @@ async def capture(session, index, url, mask, cam_timeout, free_threshold):
         pre.setImage(image)
         crop = pre.getCrop()
 
-        for frame in crop:
+        for i,frame in enumerate(crop):
             frame = cv2.resize(frame, (input_shape[1], input_shape[2]), interpolation = cv2.INTER_CUBIC)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame = frame.astype(np.float32)
@@ -111,15 +114,18 @@ async def capture(session, index, url, mask, cam_timeout, free_threshold):
             output = interpreter.get_tensor(output_details[0]['index'])
 
             if (output[0][1] > free_threshold):
-                free_space.append(True)
+                # free_space.append(True)
+                dpath.util.new(result, slot_path[index][i]+'/free', True)
+                total_free += 1
             else:
-                free_space.append(False)
+                # free_space.append(False)
+                dpath.util.new(result, slot_path[index][i]+'/free', False)
 
-    return index, status, free_space
+    return index, status, result, total_free
         
-async def capture_request(indexs, url, mask, cam_timeout, free_threshold):
+async def capture_request(indexs, url, slot_path, mask, cam_timeout, free_threshold):
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
-        result = await asyncio.gather(*[capture(session, i, url, mask, cam_timeout, free_threshold) for i in indexs])
+        result = await asyncio.gather(*[capture(session, i, url, slot_path, mask, cam_timeout, free_threshold) for i in indexs])
         await session.close()
 
     return result
@@ -128,10 +134,10 @@ async def shutdown_request(indexs, url, duration, cam_timeout):
     result = await asyncio.gather(*[shutdown(i, url, duration, cam_timeout) for i in indexs])
     return result
 
-def start_request(req_type, indexs, url, mask=None, duration=None, cam_timeout=None, free_threshold=None):
+def start_request(req_type, indexs, url, slot_path, mask=None, duration=None, cam_timeout=None, free_threshold=None):
     loop = asyncio.get_event_loop()
     if (req_type == "capture"):
-        return loop.run_until_complete(capture_request(indexs, url, mask, cam_timeout, free_threshold))
+        return loop.run_until_complete(capture_request(indexs, url, slot_path, mask, cam_timeout, free_threshold))
     elif (req_type == "shutdown"):
         return loop.run_until_complete(shutdown_request(indexs, url, duration, cam_timeout))
 
@@ -158,7 +164,7 @@ def work():
     maskParam = pars.get_masking()
     timeout = pars.get_cam_timeout()
     free_threshold = pars.get_free_threshold()
-
+    slot_path = pars.get_slot_path()
 
     NUM_CORES = cpu_count()
     # NUM_CORES = 1
@@ -195,6 +201,7 @@ def work():
                 "capture",
                 indexs,
                 cam_addr_list,
+                slot_path,
                 mask=maskParam,
                 cam_timeout=timeout,
                 free_threshold=free_threshold
@@ -209,12 +216,11 @@ def work():
             result.append(f)
     print("inference done, input result")
     # print(f"result: {result}")
-    # print(f"Input time is {timeit.timeit(pars.input_status(result), setup='global result; global pars', number=1)}")
-    pars.input_status(result)
-    # try:
-    #     pars.input_status(result)
-    # except:
-    #     print("input status failed")
+    # pars.input_status(result)
+    try:
+        print(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
+    except:
+        print("input status failed")
     
     print("work done")
 
@@ -283,17 +289,18 @@ if __name__ == "__main__":
             all_sleep = False
             print(f"Process time is {timeit.timeit(work, number=1)}")
             # print(f"Process time is {timeit.timeit(work_single_core, number=1)}")
-            db.child("free_space").set(pars.get_free(), user['idToken'])
-            # try:
-            #     db.child("free_space").set(pars.get_free(), user['idToken'])
-            # except:
-            #     print("update upload failed")
+            # db.child("free_space").set(pars.get_free(), user['idToken'])
+            # print(f"Upload time is {timeit.timeit("db.child("free_space").set(pars.get_free(), user['idToken'])", number=1)}")
+            try:
+                db.child("free_space").set(pars.get_free(), user['idToken'])
+            except:
+                print("update upload failed")
             
         elif not all_sleep:
             print("Sleep time")
             duration = get_hour_to(pars.get_start_time()-1)
             print(f"Sleep duration {duration} Hour")
-            res = start_request("shutdown", list(range(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
+            res = start_request("shutdown", list(range(pars.get_url())), pars.get_slot_path(), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
             pars.input_status(res)
             try:
                 db.child("free_space").set(pars.get_free(), user['idToken'])

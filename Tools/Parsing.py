@@ -23,8 +23,9 @@ class Parsing(object):
             for (k, v) in cam.items():
                 self.url_list.append(v['url'])
                 self.cam_path.append(loc + '/' + k)
-                path = loc + '/' + k + '/status'
-                dpath.util.new(self.cam_status, path, False)
+                path = loc + '/' + k
+                dpath.util.new(self.cam_status, path+'/status', False)
+                dpath.util.new(self.cam_status, path+'/free', 0)
                 cam_mask = []
                 slot = []
                 for (key, value) in v['slot'].items():
@@ -52,8 +53,9 @@ class Parsing(object):
             for (k, v) in cam.items():
                 self.url_list.append(v['url'])
                 self.cam_path.append(loc + '/' + k)
-                path = loc + '/' + k + '/status'
-                dpath.util.new(self.cam_status, path, False)
+                path = loc + '/' + k
+                dpath.util.new(self.cam_status, path+'/status', False)
+                dpath.util.new(self.cam_status, path+'/free', 0)
                 cam_mask = []
                 slot = []
                 for (key, value) in v['slot'].items():
@@ -121,33 +123,17 @@ class Parsing(object):
     def get_masking(self):
         return self.masking_list
     
+    def get_slot_path(self):
+        return self.slot_path
+    
     def input_status(self, inp):
-        for idx, stat, free_cam in inp:
-            dpath.util.set(self.cam_status, self.cam_path[idx]+'/status', stat)
-            # slot_path = []
-            # for i, (k, v) in enumerate(dpath.util.get(self.cam_status, self.cam_path[idx])['slot'].items()):
-            #     # slot_path.append(self.cam_path[idx]+'/slot/'+k)
-            #     dpath.util.set(self.cam_status, self.cam_path[idx]+'/slot/'+k+'/free', free_cam[i])
-            for i,slot_stat in enumerate(free_cam):
-                dpath.util.set(self.cam_status, self.slot_path[idx][i]+'/free', slot_stat)
+        for index, status, result, total_free in inp:
+            dpath.util.merge(self.cam_status, result, flags=(1 << 1))
+            dpath.util.set(self.cam_status, self.cam_path[index]+'/status', status)
+            dpath.util.set(self.cam_status, self.cam_path[index]+'/free', total_free)
         
     def get_free(self):
-        output = {}
-        total_free = 0
-        for (loc, cam) in self.cam_status.items():
-            lot_free = 0
-            for (k, v) in cam.items():
-                cam_free = 0
-                for (key, value) in v['slot'].items():
-                    dpath.util.new(output, loc+'/'+k+'/slot/'+key, dpath.util.get(self.cam_status, loc+'/'+k+'/slot/'+key))
-                    if value['free'] and not value['reserved']:
-                        cam_free += 1
-                lot_free += cam_free
-                dpath.util.new(output, loc+'/'+k+'/free', cam_free)
-            total_free += lot_free
-            dpath.util.new(output, loc+'/free', lot_free)
-        
-        dpath.util.new(output, 'free', total_free)
+        output = json.loads(json.dumps(self.cam_status))
         dpath.util.new(output, 'last_update', time.ctime(time.time()))
 
         return output
