@@ -70,7 +70,7 @@ async def shutdown(index, url, duration, cam_timeout):
 
 async def capture(session, index, url, mask, cam_timeout, free_threshold):
     status = False
-    free_space = 0
+    free_space = []
     
         # try:
         #     async with session.get(url[index]+"/capture") as response:
@@ -112,7 +112,9 @@ async def capture(session, index, url, mask, cam_timeout, free_threshold):
             output = interpreter.get_tensor(output_details[0]['index'])
 
             if (output[0][1] > free_threshold):
-                free_space += 1
+                free_space.append(True)
+            else:
+                free_space.append(False)
 
     return index, status, free_space
         
@@ -154,6 +156,9 @@ def work_single_core():
 def work():
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
+    timeout = pars.get_cam_timeout()
+    free_threshold = pars.get_free_threshold()
+
 
     NUM_CORES = cpu_count()
     # NUM_CORES = 1
@@ -191,8 +196,8 @@ def work():
                 indexs,
                 cam_addr_list,
                 mask=maskParam,
-                cam_timeout=pars.get_cam_timeout(),
-                free_threshold=pars.get_free_threshold()
+                cam_timeout=timeout,
+                free_threshold=free_threshold
             )
             futures.append(new_future)
 
@@ -203,9 +208,11 @@ def work():
         for f in future.result():
             result.append(f)
     
-    print(f"result: {result}")
-    pars.input_status(result)
-    # print(pars.get_free_lot_all())
+    # print(f"result: {result}")
+    try:
+        pars.input_status(result)
+    except:
+        print("input status failed")
 
 def exit_callback(e):
     global terminate
@@ -243,7 +250,10 @@ if __name__ == "__main__":
             print("start process")
             print(f"Process time is {timeit.timeit(work, number=1)}")
             # print(f"Process time is {timeit.timeit(work_single_core, number=1)}")
-            db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
+            try:
+                db.child("free_space").set(pars.get_free(), user['idToken'])
+            except:
+                print("update upload failed")
             
         elif not all_sleep:
             print("Sleep time")
@@ -251,7 +261,10 @@ if __name__ == "__main__":
             print(f"Sleep duration {duration} Hour")
             res = start_request("shutdown", list(range(pars.get_url())), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
             pars.input_status(res)
-            db.child("free_space").set(pars.get_free_lot_all(), user['idToken'])
+            try:
+                db.child("free_space").set(pars.get_free(), user['idToken'])
+            except:
+                print("update upload failed")
             print("system sleep")
             all_sleep = True
         

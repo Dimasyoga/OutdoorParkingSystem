@@ -1,31 +1,42 @@
 import json
 import dpath.util
 import time
+import copy
 
 class Parsing(object):
     def __init__(self):
         self.json_raw = None
         self.conf_json_raw = None
-        self.parking_lot = {}
-        self.cam_available_status = []
-        self.free_cam = []
+        self.cam_status = {}
+        self.cam_path = []
         self.url_list = []
         self.masking_list = []
     
     def update(self):
-        self.parking_lot = {}
-        self.cam_available_status = []
-        self.free_cam = []
+        self.cam_status = {}
+        self.cam_path = []
         self.url_list = []
         self.masking_list = []
 
-        for (k, v) in self.json_raw.items():
-            self.parking_lot[k] = len(self.json_raw[k])
-            for (key, value) in v.items():
-                self.url_list.append(value['url'])
-                self.masking_list.append(value['masking'])
-                self.cam_available_status.append(False)
-                self.free_cam.append(0)
+        for (loc, cam) in self.json_raw.items():
+            for (k, v) in cam.items():
+                self.url_list.append(v['url'])
+                self.cam_path.append(loc + '/' + k)
+                path = loc + '/' + k + '/status'
+                dpath.util.new(self.cam_status, path, False)
+                cam_mask = []
+                for (key, value) in v['slot'].items():
+                    path = loc + '/' + k + '/slot/' + key
+                    message = {}
+                    message['free'] = False
+                    message['reserved'] = value['reserved']
+                    dpath.util.new(self.cam_status, path, message)
+                    slot_mask = value['masking']
+                    x = []
+                    for point in slot_mask:
+                        x.append(tuple(point))
+                    cam_mask.append(x)
+                self.masking_list.append(cam_mask)
         
     def input_config(self, config):
         """
@@ -33,13 +44,25 @@ class Parsing(object):
         """
         self.json_raw = config
 
-        for (k, v) in config.items():
-            self.parking_lot[k] = len(config[k])
-            for (key, value) in v.items():
-                self.url_list.append(value['url'])
-                self.masking_list.append(value['masking'])
-                self.cam_available_status.append(False)
-                self.free_cam.append(0)
+        for (loc, cam) in config.items():
+            for (k, v) in cam.items():
+                self.url_list.append(v['url'])
+                self.cam_path.append(loc + '/' + k)
+                path = loc + '/' + k + '/status'
+                dpath.util.new(self.cam_status, path, False)
+                cam_mask = []
+                for (key, value) in v['slot'].items():
+                    path = loc + '/' + k + '/slot/' + key
+                    message = {}
+                    message['free'] = False
+                    message['reserved'] = value['reserved']
+                    dpath.util.new(self.cam_status, path, message)
+                    slot_mask = value['masking']
+                    x = []
+                    for point in slot_mask:
+                        x.append(tuple(point))
+                    cam_mask.append(x)
+                self.masking_list.append(cam_mask)
 
     def stream_handler(self, message):
         """
@@ -71,91 +94,54 @@ class Parsing(object):
         print(self.conf_json_raw)
 
     def get_start_time(self):
-        return self.conf_json_raw["start_time"]
+        return self.conf_json_raw['start_time']
 
     def get_end_time(self):
-        return self.conf_json_raw["end_time"]
+        return self.conf_json_raw['end_time']
     
     def get_update_rate(self):
-        return self.conf_json_raw["update_rate"]
+        return self.conf_json_raw['update_rate']
     
     def get_free_threshold(self):
-        return self.conf_json_raw["free_threshold"]
+        return self.conf_json_raw['free_threshold']
     
     def get_cam_timeout(self):
-        return self.conf_json_raw["cam_timeout"]
+        return self.conf_json_raw['cam_timeout']
 
     def get_url(self):
         return self.url_list
     
     def get_masking(self):
-        
-        result = []
-        for cam in self.masking_list:
-            mask = []
-            for slot in cam:
-                x = []
-                for point in slot:
-                    x.append(tuple(point))
-                mask.append(x)
-            result.append(mask)
-        
-        return result
+        return self.masking_list
     
     def input_status(self, inp):
         for idx, stat, free_cam in inp:
-            if stat:
-                self.cam_available_status[idx] = True
-                self.free_cam[idx] = free_cam
-            else:
-                self.cam_available_status[idx] = False
+            dpath.util.set(self.cam_status, self.cam_path[idx]+'/status', stat)
+            slot_path = []
+            for (k, v) in dpath.util.get(self.cam_status, self.cam_path[idx])['slot'].items():
+                slot_path.append(self.cam_path[idx]+'/slot/'+k)
+            for i,slot_stat in enumerate(free_cam):
+                dpath.util.set(self.cam_status, slot_path[i]+'/free', slot_stat)
         
-    def get_free_lot_total(self):
-        output = {}
-        count = 0
-        for (k, v) in self.parking_lot.items():
-            sum = 0
-            for idx in range(count, count+v):
-                sum = sum + self.free_cam[idx]
-            output[k] = sum
-            count = count + v
+    def get_free(self):
+        output = copy.deepcopy(self.cam_status)
+        total_free = 0
+        for (loc, cam) in self.cam_status.items():
+            lot_free = 0
+            for (k, v) in cam.items():
+                cam_free = 0
+                for (key, value) in v['slot'].items():
+                    if value['free'] and not value['reserved']:
+                        cam_free += 1
+                lot_free += cam_free
+                dpath.util.new(output, loc+'/'+k+'/free', cam_free)
+            total_free += lot_free
+            dpath.util.new(output, loc+'/free', lot_free)
         
-        output["last_update"] = time.ctime(time.time())
-        
-        return output
+        dpath.util.new(output, 'free', total_free)
+        dpath.util.new(output, 'last_update', time.ctime(time.time()))
 
-    def get_free_lot_all(self):
-        output = {}
-        count = 0
-        for (k, v) in self.json_raw.items():
-            out = {}
-            for (key, value) in v.items():
-                out[key] = {"cam_available_status": self.cam_available_status[count],"free_space": self.free_cam[count]}
-                count = count + 1
-            output[k] = out
-        
-        output["last_update"] = time.ctime(time.time())
-        
         return output
-    
-    def all_cam_true(self):
-        ret = True
-        for stat in self.cam_available_status:
-            if not stat:
-                ret = False
-        
-        return ret
-    
-    def get_false_cam_index(self):
-        """
-        docstring
-        """
-        idx = []
-        for i, stat in enumerate(self.cam_available_status):
-            if not stat:
-                idx.append(i)
-        
-        return idx
     
     def config_ready(self):
         if (self.json_raw != None) and (self.conf_json_raw != None):
@@ -166,13 +152,11 @@ class Parsing(object):
 
         
 # if __name__ == "__main__":
-    # pars = Parsing()
+#     pars = Parsing()
 
-    # with open("config.json", 'r') as f:
-    #     data = json.load(f)
+#     with open("config.json", 'r') as f:
+#         data = json.load(f)
     
-    # pars.input_config(data)
-    # print(pars.get_url())
-    # print(pars.get_masking())
-    # print(pars.get_free_lot_total())
-    # print(pars.get_free_lot_all())
+#     pars.input_config(data)
+#     print(pars.get_url())
+#     print(pars.get_masking())
