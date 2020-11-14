@@ -153,6 +153,7 @@ def work_single_core():
     pars.input_status(result)
 
 def work():
+    print("start work")
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
     timeout = pars.get_cam_timeout()
@@ -206,12 +207,16 @@ def work():
         # print(future.result())
         for f in future.result():
             result.append(f)
-    
+    print("inference done, input result")
     # print(f"result: {result}")
-    try:
-        pars.input_status(result)
-    except:
-        print("input status failed")
+    # print(f"Input time is {timeit.timeit(pars.input_status(result), setup='global result; global pars', number=1)}")
+    pars.input_status(result)
+    # try:
+    #     pars.input_status(result)
+    # except:
+    #     print("input status failed")
+    
+    print("work done")
 
 def exit_callback(e):
     global terminate
@@ -276,13 +281,13 @@ if __name__ == "__main__":
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
             print("work time")
             all_sleep = False
-            print("start process")
             print(f"Process time is {timeit.timeit(work, number=1)}")
             # print(f"Process time is {timeit.timeit(work_single_core, number=1)}")
-            try:
-                db.child("free_space").set(pars.get_free(), user['idToken'])
-            except:
-                print("update upload failed")
+            db.child("free_space").set(pars.get_free(), user['idToken'])
+            # try:
+            #     db.child("free_space").set(pars.get_free(), user['idToken'])
+            # except:
+            #     print("update upload failed")
             
         elif not all_sleep:
             print("Sleep time")
