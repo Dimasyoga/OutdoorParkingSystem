@@ -11,6 +11,7 @@ class Parsing(object):
         self.url_list = []
         self.masking_list = []
         self.slot_path = []
+        self.slot_reserved = []
     
     def update(self):
         self.cam_status = {}
@@ -18,6 +19,7 @@ class Parsing(object):
         self.url_list = []
         self.masking_list = []
         self.slot_path = []
+        self.slot_reserved = []
 
         for (loc, cam) in self.json_raw.items():
             for (k, v) in cam.items():
@@ -28,12 +30,13 @@ class Parsing(object):
                 dpath.util.new(self.cam_status, path+'/free', 0)
                 cam_mask = []
                 slot = []
+                reserved = []
                 for (key, value) in v['slot'].items():
                     path = loc + '/' + k + '/slot/' + key
                     slot.append(path)
                     message = {}
                     message['free'] = False
-                    message['reserved'] = value['reserved']
+                    reserved.append(value['reserved'])
                     dpath.util.new(self.cam_status, path, message)
                     slot_mask = value['masking']
                     x = []
@@ -42,6 +45,7 @@ class Parsing(object):
                     cam_mask.append(x)
                 self.masking_list.append(cam_mask)
                 self.slot_path.append(slot)
+                self.slot_reserved.append(reserved)
         
     def input_config(self, config):
         """
@@ -58,12 +62,13 @@ class Parsing(object):
                 dpath.util.new(self.cam_status, path+'/free', 0)
                 cam_mask = []
                 slot = []
+                reserved = []
                 for (key, value) in v['slot'].items():
                     path = loc + '/' + k + '/slot/' + key
                     slot.append(path)
                     message = {}
                     message['free'] = False
-                    message['reserved'] = value['reserved']
+                    reserved.append(value['reserved'])
                     dpath.util.new(self.cam_status, path, message)
                     slot_mask = value['masking']
                     x = []
@@ -72,6 +77,7 @@ class Parsing(object):
                     cam_mask.append(x)
                 self.masking_list.append(cam_mask)
                 self.slot_path.append(slot)
+                self.slot_reserved.append(reserved)
 
     def stream_handler(self, message):
         """
@@ -125,6 +131,9 @@ class Parsing(object):
     
     def get_slot_path(self):
         return self.slot_path
+    
+    def get_slot_reserved(self):
+        return self.slot_reserved
     
     def input_status(self, inp):
         for index, status, result, total_free in inp:

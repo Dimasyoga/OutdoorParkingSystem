@@ -69,7 +69,7 @@ async def shutdown(index, url, duration, cam_timeout):
         return index, status, result, 0
 
 
-async def capture(session, index, url, slot_path, mask, cam_timeout, free_threshold):
+async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
     status = False
     result = {}
     total_free = 0
@@ -116,16 +116,17 @@ async def capture(session, index, url, slot_path, mask, cam_timeout, free_thresh
             if (output[0][1] > free_threshold):
                 # free_space.append(True)
                 dpath.util.new(result, slot_path[index][i]+'/free', True)
-                total_free += 1
+                if not slot_reserved[index][i]:
+                    total_free += 1
             else:
                 # free_space.append(False)
                 dpath.util.new(result, slot_path[index][i]+'/free', False)
 
     return index, status, result, total_free
         
-async def capture_request(indexs, url, slot_path, mask, cam_timeout, free_threshold):
+async def capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
-        result = await asyncio.gather(*[capture(session, i, url, slot_path, mask, cam_timeout, free_threshold) for i in indexs])
+        result = await asyncio.gather(*[capture(session, i, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold) for i in indexs])
         await session.close()
 
     return result
@@ -134,10 +135,10 @@ async def shutdown_request(indexs, url, duration, cam_timeout):
     result = await asyncio.gather(*[shutdown(i, url, duration, cam_timeout) for i in indexs])
     return result
 
-def start_request(req_type, indexs, url, slot_path, mask=None, duration=None, cam_timeout=None, free_threshold=None):
+def start_request(req_type, indexs, url, slot_path=None, slot_reserved=None, mask=None, duration=None, cam_timeout=None, free_threshold=None):
     loop = asyncio.get_event_loop()
     if (req_type == "capture"):
-        return loop.run_until_complete(capture_request(indexs, url, slot_path, mask, cam_timeout, free_threshold))
+        return loop.run_until_complete(capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold))
     elif (req_type == "shutdown"):
         return loop.run_until_complete(shutdown_request(indexs, url, duration, cam_timeout))
 
@@ -153,7 +154,7 @@ def work_single_core():
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
 
-    result = start_request("capture", range(len(cam_addr_list)), cam_addr_list, mask=maskParam, cam_timeout=pars.get_cam_timeout(), free_threshold=pars.get_free_threshold())
+    result = start_request("capture", range(len(cam_addr_list)), cam_addr_list, mask=maskParam, slot_path=pars.get_slot_path(), slot_reserved=pars.get_slot_reserved(), cam_timeout=pars.get_cam_timeout(), free_threshold=pars.get_free_threshold())
 
     print(f"result: {result}")
     pars.input_status(result)
@@ -165,6 +166,7 @@ def work():
     timeout = pars.get_cam_timeout()
     free_threshold = pars.get_free_threshold()
     slot_path = pars.get_slot_path()
+    slot_reserved = pars.get_slot_reserved()
 
     NUM_CORES = cpu_count()
     # NUM_CORES = 1
@@ -201,7 +203,8 @@ def work():
                 "capture",
                 indexs,
                 cam_addr_list,
-                slot_path,
+                slot_path=slot_path,
+                slot_reserved=slot_reserved,
                 mask=maskParam,
                 cam_timeout=timeout,
                 free_threshold=free_threshold
