@@ -41,7 +41,6 @@ firebase = pyrebase.initialize_app(config)
 
 db = firebase.database()
 auth = firebase.auth()
-user = auth.sign_in_with_email_and_password(firebase_config["credential"]["email"], firebase_config["credential"]["password"])
 
 terminate = False
 
@@ -220,9 +219,18 @@ def exit_callback(e):
     terminate = True
 
 if __name__ == "__main__":
+    
+    connect = False
+    while not connect:
+        try:
+            user = auth.sign_in_with_email_and_password(firebase_config["credential"]["email"], firebase_config["credential"]["password"])
+            camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+            systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
+            connect = True
+        except:
+            print("connection to database failed")
+            time.sleep(1)
 
-    camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
-    systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
     
     while not pars.config_ready():
         print("wait for config...\n")
@@ -238,10 +246,31 @@ if __name__ == "__main__":
 
         if time.time() > (last + 3000):
             last = time.time()
-            camConfig_stream.close()
-            systemConfig_stream.close()
-            user = auth.refresh(user['refreshToken'])
+            try:
+                camConfig_stream.close()
+                systemConfig_stream.close()
+                user = auth.refresh(user['refreshToken'])
+            except:
+                print("refresh token failed")
             camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+            systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
+        
+        if not camConfig_stream.thread.is_alive():
+            print("camConfig_stream is dead")
+            try:
+                camConfig_stream.close()
+            except Exception:
+                # client.captureException(tags={'handled_status': 'catched_and_logged'})
+                print("close stream camConfig failed")
+            camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+        
+        if not systemConfig_stream.thread.is_alive():
+            print("systemConfig_stream is dead")
+            try:
+                systemConfig_stream.close()
+            except Exception:
+                # client.captureException(tags={'handled_status': 'catched_and_logged'})
+                print("close stream systemConfig failed")
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
