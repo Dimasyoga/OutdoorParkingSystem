@@ -137,7 +137,8 @@ class Parsing(object):
     
     def input_status(self, inp):
         for index, status, result, total_free in inp:
-            dpath.util.merge(self.cam_status, result, flags=(1 << 1))
+            # dpath.util.merge(self.cam_status, result, flags=(1 << 1))
+            self.cam_status.update(result)
             dpath.util.set(self.cam_status, self.cam_path[index]+'/status', status)
             dpath.util.set(self.cam_status, self.cam_path[index]+'/free', total_free)
         

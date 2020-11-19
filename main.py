@@ -24,8 +24,6 @@ with open("firebase_config.json", 'r') as f:
 
 pars = Parsing()
 
-pre = Preprocessing()
-
 model_path = "./model.tflite"
 
 # Load TFLite model and allocate tensors.
@@ -70,6 +68,7 @@ async def shutdown(index, url, duration, cam_timeout):
 
 
 async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
+    pre = Preprocessing()
     status = False
     result = {}
     total_free = 0
