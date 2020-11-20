@@ -18,6 +18,9 @@ import random
 import pyrebase
 import keyboard
 import dpath.util
+import logging
+
+logging.getLogger().setLevel(logging.INFO)
 
 with open("firebase_config.json", 'r') as f:
     firebase_config = json.load(f)
@@ -43,29 +46,83 @@ auth = firebase.auth()
 
 terminate = False
 
-async def shutdown(index, url, duration, cam_timeout):
+async def shutdown(session, index, url, duration, cam_timeout):
     status = False
     result = {}
     headers = {'time': str(duration)}
-    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
-        try:
-            async with session.get(url[index]+"/shutdown", headers=headers) as response:
-                if (response.status == 200):
-                    print(f"Response status ({url[index]}): {response.status}")
-                    status = True
-    
-            
-        except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {url[index]} {http_err}")
-        
-        except aiohttp.ClientConnectorError as e:
-            print(f'Connection Error {url[index]} {str(e)}')
-            
-        except Exception as err:
-            print(f"An error ocurred: {url[index]} {err}")
-        
-        return index, status, result, 0
+    try:
+        async with session.get(url[index]+"/shutdown", headers=headers) as response:
+            if (response.status == 200):
+                logging.info(f"Response status ({url[index]}): {response.status}")
+                status = True
 
+        
+    except requests.exceptions.HTTPError as http_err:
+        logging.info(f"HTTP error occurred: {url[index]} {http_err}")
+    
+    except aiohttp.ClientConnectorError as e:
+        logging.info(f'Connection Error {url[index]} {str(e)}')
+        
+    except Exception as err:
+        logging.info(f"An error ocurred: {url[index]} {err}")
+    
+    return index, status, result, 0
+
+# async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
+#     pre = Preprocessing()
+#     status = False
+#     result = {}
+#     total_free = 0
+    
+#     # try:
+#     #     async with session.get(url[index]+"/capture") as response:
+#     #         # response.raise_for_status()
+#     #         if (response.status == 200):
+#     #             logging.info(f"Response status ({url[index]}): {response.status}")
+#     #             image = np.asarray(bytearray(await response.read()), dtype="uint8")
+#     #             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+#     #             status = True
+
+        
+#     # except requests.exceptions.HTTPError as http_err:
+#     #     logging.info(f"HTTP error occurred: {url[index]} {http_err}")
+    
+#     # except aiohttp.ClientConnectorError as e:
+#     #     logging.info(f'Connection Error {url[index]} {str(e)}')
+        
+#     # except Exception as err:
+#     #     logging.info(f"An error ocurred: {url[index]} {err}")
+        
+#     image = np.zeros((1600, 1200, 3), dtype="uint8")
+#     time.sleep(random.uniform(0.6, 0.7))
+#     status = True
+
+#     if status:
+#         pre.setMask(mask[index])
+#         pre.setImage(image)
+#         crop = pre.getCrop()
+
+#         for i,frame in enumerate(crop):
+#             frame = cv2.resize(frame, (input_shape[1], input_shape[2]), interpolation = cv2.INTER_CUBIC)
+#             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#             frame = frame.astype(np.float32)
+#             frame = frame / 255.
+#             frame = np.expand_dims(frame, 0)
+
+#             interpreter.set_tensor(input_details[0]['index'], frame)
+#             interpreter.invoke()
+#             output = interpreter.get_tensor(output_details[0]['index'])
+
+#             if (output[0][1] > free_threshold):
+#                 # free_space.append(True)
+#                 dpath.util.new(result, slot_path[index][i]+'/free', True)
+#                 if not slot_reserved[index][i]:
+#                     total_free += 1
+#             else:
+#                 # free_space.append(False)
+#                 dpath.util.new(result, slot_path[index][i]+'/free', False)
+
+#     return index, status, result, total_free
 
 async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
     pre = Preprocessing()
@@ -73,24 +130,24 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
     result = {}
     total_free = 0
     
-        # try:
-        #     async with session.get(url[index]+"/capture") as response:
-        #         # response.raise_for_status()
-        #         if (response.status == 200):
-        #             print(f"Response status ({url[index]}): {response.status}")
-        #             image = np.asarray(bytearray(await response.read()), dtype="uint8")
-        #             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-        #             status = True
-    
-            
-        # except requests.exceptions.HTTPError as http_err:
-        #     print(f"HTTP error occurred: {url[index]} {http_err}")
+    # try:
+    #     async with session.get(url[index]+"/capture") as response:
+    #         # response.raise_for_status()
+    #         if (response.status == 200):
+    #             logging.info(f"Response status ({url[index]}): {response.status}")
+    #             image = np.asarray(bytearray(await response.read()), dtype="uint8")
+    #             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+    #             status = True
+
         
-        # except aiohttp.ClientConnectorError as e:
-        #     print(f'Connection Error {url[index]} {str(e)}')
-            
-        # except Exception as err:
-        #     print(f"An error ocurred: {url[index]} {err}")
+    # except requests.exceptions.HTTPError as http_err:
+    #     logging.info(f"HTTP error occurred: {url[index]} {http_err}")
+    
+    # except aiohttp.ClientConnectorError as e:
+    #     logging.info(f'Connection Error {url[index]} {str(e)}')
+        
+    # except Exception as err:
+    #     logging.info(f"An error ocurred: {url[index]} {err}")
         
     image = np.zeros((1600, 1200, 3), dtype="uint8")
     time.sleep(random.uniform(0.6, 0.7))
@@ -120,8 +177,13 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
             else:
                 # free_space.append(False)
                 dpath.util.new(result, slot_path[index][i]+'/free', False)
-
-    return index, status, result, total_free
+    stat = slot_path[index][0].split('/')[:-2]
+    free = slot_path[index][0].split('/')[:-2]
+    stat.append('status')
+    free.append('free')
+    dpath.util.new(result, stat, status)
+    dpath.util.new(result, free, total_free)
+    return index, result, total_free
         
 async def capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:
@@ -131,7 +193,10 @@ async def capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeo
     return result
 
 async def shutdown_request(indexs, url, duration, cam_timeout):
-    result = await asyncio.gather(*[shutdown(i, url, duration, cam_timeout) for i in indexs])
+    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:    
+        asyncio.gather(*[shutdown(session, i, url, duration, cam_timeout) for i in indexs])
+        await session.close()
+
     return result
 
 def start_request(req_type, indexs, url, slot_path=None, slot_reserved=None, mask=None, duration=None, cam_timeout=None, free_threshold=None):
@@ -155,11 +220,11 @@ def work_single_core():
 
     result = start_request("capture", range(len(cam_addr_list)), cam_addr_list, mask=maskParam, slot_path=pars.get_slot_path(), slot_reserved=pars.get_slot_reserved(), cam_timeout=pars.get_cam_timeout(), free_threshold=pars.get_free_threshold())
 
-    print(f"result: {result}")
+    logging.info(f"result: {result}")
     pars.input_status(result)
 
 def work():
-    print("start work")
+    logging.info("start work")
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
     timeout = pars.get_cam_timeout()
@@ -173,7 +238,7 @@ def work():
     URL_PER_CORE = floor(NUM_URL / NUM_CORES)
     REMAINDER = NUM_URL % NUM_CORES
 
-    # print("url count: {0} cpu count: {1} count {2} remainder {3}".format(NUM_URL, NUM_CORES, URL_PER_CORE, REMAINDER))
+    # logging.info("url count: {0} cpu count: {1} count {2} remainder {3}".format(NUM_URL, NUM_CORES, URL_PER_CORE, REMAINDER))
 
     futures = [] # To store our futures
     result = []
@@ -191,10 +256,10 @@ def work():
 
 
             for j in range(start, stop):
-                # print("j{0} : {1}".format(i, j))
+                # logging.info("j{0} : {1}".format(i, j))
                 indexs.append(j)
 
-            # print("core {0} get {1} task from {2} to {3}".format(i, len(indexs), start, stop))
+            # logging.info("core {0} get {1} task from {2} to {3}".format(i, len(indexs), start, stop))
             
             new_future = executor.submit(
                 start_request, # Function to perform
@@ -213,22 +278,22 @@ def work():
     concurrent.futures.wait(futures)
 
     for future in futures:
-        # print(future.result())
+        # logging.info(future.result())
         for f in future.result():
             result.append(f)
-    print("inference done, input result")
-    # print(f"result: {result}")
+    logging.info("inference done, input result")
+    # logging.info(f"result: {result}")
     # pars.input_status(result)
     try:
-        print(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
+        logging.info(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
     except:
-        print("input status failed")
+        logging.info("input status failed")
     
-    print("work done")
+    logging.info("work done")
 
 def exit_callback(e):
     global terminate
-    print("Terminate program")
+    logging.info("Terminate program")
     terminate = True
 
 if __name__ == "__main__":
@@ -241,15 +306,15 @@ if __name__ == "__main__":
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
             connect = True
         except:
-            print("connection to database failed")
+            logging.info("connection to database failed")
             time.sleep(1)
 
     
     while not pars.config_ready():
-        print("wait for config...\n")
+        logging.info("wait for config...\n")
         time.sleep(1)
     
-    print(f"start_time: {pars.get_start_time()}\nend_time: {pars.get_end_time()}\nupdate_rate: {pars.get_update_rate()}\ncam_timeout: {pars.get_cam_timeout()}\nfree_threshold: {pars.get_free_threshold()}")
+    logging.info(f"start_time: {pars.get_start_time()}\nend_time: {pars.get_end_time()}\nupdate_rate: {pars.get_update_rate()}\ncam_timeout: {pars.get_cam_timeout()}\nfree_threshold: {pars.get_free_threshold()}")
     all_sleep = False
     last = time.time()
     keyboard.on_press_key("q", exit_callback)
@@ -264,60 +329,60 @@ if __name__ == "__main__":
                 systemConfig_stream.close()
                 user = auth.refresh(user['refreshToken'])
             except:
-                print("refresh token failed")
+                logging.info("refresh token failed")
             camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
         if not camConfig_stream.thread.is_alive():
-            print("camConfig_stream is dead")
+            logging.info("camConfig_stream is dead")
             try:
                 camConfig_stream.close()
             except Exception:
                 # client.captureException(tags={'handled_status': 'catched_and_logged'})
-                print("close stream camConfig failed")
+                logging.info("close stream camConfig failed")
             camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
         
         if not systemConfig_stream.thread.is_alive():
-            print("systemConfig_stream is dead")
+            logging.info("systemConfig_stream is dead")
             try:
                 systemConfig_stream.close()
             except Exception:
                 # client.captureException(tags={'handled_status': 'catched_and_logged'})
-                print("close stream systemConfig failed")
+                logging.info("close stream systemConfig failed")
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
-            print("work time")
+            logging.info("work time")
             all_sleep = False
-            print(f"Process time is {timeit.timeit(work, number=1)}")
-            # print(f"Process time is {timeit.timeit(work_single_core, number=1)}")
+            logging.info(f"Process time is {timeit.timeit(work, number=1)}")
+            # logging.info(f"Process time is {timeit.timeit(work_single_core, number=1)}")
             # db.child("free_space").set(pars.get_free(), user['idToken'])
-            # print(f"Upload time is {timeit.timeit("db.child("free_space").set(pars.get_free(), user['idToken'])", number=1)}")
+            # logging.info(f"Upload time is {timeit.timeit("db.child("free_space").set(pars.get_free(), user['idToken'])", number=1)}")
             try:
                 db.child("free_space").set(pars.get_free(), user['idToken'])
             except:
-                print("update upload failed")
+                logging.info("update upload failed")
             
         elif not all_sleep:
-            print("Sleep time")
+            logging.info("Sleep time")
             duration = get_hour_to(pars.get_start_time()-1)
-            print(f"Sleep duration {duration} Hour")
+            logging.info(f"Sleep duration {duration} Hour")
             res = start_request("shutdown", list(range(pars.get_url())), pars.get_slot_path(), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
             pars.input_status(res)
             try:
                 db.child("free_space").set(pars.get_free(), user['idToken'])
             except:
-                print("update upload failed")
-            print("system sleep")
+                logging.info("update upload failed")
+            logging.info("system sleep")
             all_sleep = True
         
         end = time.time()
-        print(f"Total time for update: {end-start}")
+        logging.info(f"Total time for update: {end-start}")
         
         if ((end-start) < pars.get_update_rate()):
             time.sleep(pars.get_update_rate() - (end-start))
     
-    print("Program shutdown")
+    logging.info("Program shutdown")
     keyboard.unhook_all()
     camConfig_stream.close()
     systemConfig_stream.close()

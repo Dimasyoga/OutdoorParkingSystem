@@ -46,7 +46,8 @@ class Parsing(object):
                 self.masking_list.append(cam_mask)
                 self.slot_path.append(slot)
                 self.slot_reserved.append(reserved)
-        
+        # print(self.slot_path)
+
     def input_config(self, config):
         """
         docstring
@@ -136,12 +137,16 @@ class Parsing(object):
         return self.slot_reserved
     
     def input_status(self, inp):
-        for index, status, result, total_free in inp:
-            # dpath.util.merge(self.cam_status, result, flags=(1 << 1))
-            self.cam_status.update(result)
-            dpath.util.set(self.cam_status, self.cam_path[index]+'/status', status)
-            dpath.util.set(self.cam_status, self.cam_path[index]+'/free', total_free)
-        
+        # res = {}
+        for index, result, total_free in inp:
+            dpath.util.merge(self.cam_status, result, flags=(1 << 1))
+            # dpath.util.set(self.cam_status, '/', result)
+            # res.update(result)
+            # print(result)
+            # dpath.util.set(self.cam_status, self.cam_path[index]+'/status', status)
+            # dpath.util.set(self.cam_status, self.cam_path[index]+'/free', total_free)
+        # print(res)
+
     def get_free(self):
         output = json.loads(json.dumps(self.cam_status))
         dpath.util.new(output, 'last_update', time.ctime(time.time()))
