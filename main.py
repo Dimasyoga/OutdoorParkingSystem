@@ -342,4 +342,3 @@ if __name__ == "__main__":
     logging.info("Program shutdown")
     camConfig_stream.close()
     systemConfig_stream.close()
-    listener.stop()
