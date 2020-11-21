@@ -68,62 +68,6 @@ async def shutdown(session, index, url, duration, cam_timeout):
     
     return index, status, result, 0
 
-# async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
-#     pre = Preprocessing()
-#     status = False
-#     result = {}
-#     total_free = 0
-    
-#     # try:
-#     #     async with session.get(url[index]+"/capture") as response:
-#     #         # response.raise_for_status()
-#     #         if (response.status == 200):
-#     #             logging.info(f"Response status ({url[index]}): {response.status}")
-#     #             image = np.asarray(bytearray(await response.read()), dtype="uint8")
-#     #             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-#     #             status = True
-
-        
-#     # except requests.exceptions.HTTPError as http_err:
-#     #     logging.info(f"HTTP error occurred: {url[index]} {http_err}")
-    
-#     # except aiohttp.ClientConnectorError as e:
-#     #     logging.info(f'Connection Error {url[index]} {str(e)}')
-        
-#     # except Exception as err:
-#     #     logging.info(f"An error ocurred: {url[index]} {err}")
-        
-#     image = np.zeros((1600, 1200, 3), dtype="uint8")
-#     time.sleep(random.uniform(0.6, 0.7))
-#     status = True
-
-#     if status:
-#         pre.setMask(mask[index])
-#         pre.setImage(image)
-#         crop = pre.getCrop()
-
-#         for i,frame in enumerate(crop):
-#             frame = cv2.resize(frame, (input_shape[1], input_shape[2]), interpolation = cv2.INTER_CUBIC)
-#             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-#             frame = frame.astype(np.float32)
-#             frame = frame / 255.
-#             frame = np.expand_dims(frame, 0)
-
-#             interpreter.set_tensor(input_details[0]['index'], frame)
-#             interpreter.invoke()
-#             output = interpreter.get_tensor(output_details[0]['index'])
-
-#             if (output[0][1] > free_threshold):
-#                 # free_space.append(True)
-#                 dpath.util.new(result, slot_path[index][i]+'/free', True)
-#                 if not slot_reserved[index][i]:
-#                     total_free += 1
-#             else:
-#                 # free_space.append(False)
-#                 dpath.util.new(result, slot_path[index][i]+'/free', False)
-
-#     return index, status, result, total_free
-
 async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
     pre = Preprocessing()
     status = False
@@ -177,12 +121,13 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
             else:
                 # free_space.append(False)
                 dpath.util.new(result, slot_path[index][i]+'/free', False)
-    stat = slot_path[index][0].split('/')[:-2]
-    free = slot_path[index][0].split('/')[:-2]
-    stat.append('status')
-    free.append('free')
-    dpath.util.new(result, stat, status)
-    dpath.util.new(result, free, total_free)
+        path = slot_path[index][0].split('/')[:-2]
+        path.append('free')
+        dpath.util.new(result, path, total_free)
+
+    path = slot_path[index][0].split('/')[:-2]
+    path.append('status')
+    dpath.util.new(result, path, status)
     return index, result, total_free
         
 async def capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
