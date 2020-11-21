@@ -16,7 +16,7 @@ import sys
 import time
 import random
 import pyrebase
-import keyboard
+from pynput import keyboard
 import dpath.util
 import logging
 
@@ -237,10 +237,16 @@ def work():
     
     logging.info("work done")
 
-def exit_callback(e):
+
+def on_press(key):
     global terminate
-    logging.info("Terminate program")
-    terminate = True
+    try:
+        if key.char == 'q':
+            terminate = True
+            logging.info("Terminate program")
+    except AttributeError:
+        print('special key {0} pressed'.format(
+            key))
 
 if __name__ == "__main__":
     
@@ -254,16 +260,17 @@ if __name__ == "__main__":
         except:
             logging.info("connection to database failed")
             time.sleep(1)
+    
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
 
-    
-    while not pars.config_ready():
+    while not pars.config_ready() and not terminate:
         logging.info("wait for config...\n")
-        time.sleep(1)
+        time.sleep(2)
     
-    logging.info(f"start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}, free_threshold: {pars.get_free_threshold()}")
+    # logging.info(f"start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}, free_threshold: {pars.get_free_threshold()}")
     all_sleep = False
     last = time.time()
-    keyboard.on_press_key("q", exit_callback)
 
     while not terminate:
         start = time.time()
@@ -329,6 +336,6 @@ if __name__ == "__main__":
             time.sleep(pars.get_update_rate() - (end-start))
     
     logging.info("Program shutdown")
-    keyboard.unhook_all()
+    listener.stop()
     camConfig_stream.close()
     systemConfig_stream.close()

@@ -864,6 +864,80 @@
         }
       },
       "url" : "http://192.168.88.10"
+    },
+    "cam_4" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.190"
+    },
+    "cam_5" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.10"
     }
   },
   "Altim" : {
