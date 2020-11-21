@@ -1,7 +1,9 @@
 import json
 import dpath.util
 import time
+import logging
 
+logging.getLogger().setLevel(logging.INFO)
 class Parsing(object):
     def __init__(self):
         self.json_raw = None
@@ -20,9 +22,12 @@ class Parsing(object):
         self.masking_list = []
         self.slot_path = []
         self.slot_reserved = []
+        slot_count = 0
+        cam_count = 0
 
         for (loc, cam) in self.json_raw.items():
             for (k, v) in cam.items():
+                cam_count += 1
                 self.url_list.append(v['url'])
                 self.cam_path.append(loc + '/' + k)
                 path = loc + '/' + k
@@ -32,6 +37,7 @@ class Parsing(object):
                 slot = []
                 reserved = []
                 for (key, value) in v['slot'].items():
+                    slot_count += 1
                     path = loc + '/' + k + '/slot/' + key
                     slot.append(path)
                     message = {}
@@ -46,6 +52,8 @@ class Parsing(object):
                 self.masking_list.append(cam_mask)
                 self.slot_path.append(slot)
                 self.slot_reserved.append(reserved)
+        
+        logging.info(f"Registered cam: {cam_count}, Total slot: {slot_count}")
         # print(self.slot_path)
 
     def input_config(self, config):
@@ -107,7 +115,7 @@ class Parsing(object):
                 dpath.util.new(self.conf_json_raw, path, message["data"])
         else:
             dpath.util.delete(self.conf_json_raw, path)
-        print(self.conf_json_raw)
+        logging.info(f"System config is {self.conf_json_raw}")
 
     def get_start_time(self):
         return self.conf_json_raw['start_time']
@@ -154,7 +162,7 @@ class Parsing(object):
         return output
     
     def config_ready(self):
-        if (self.json_raw != None) and (self.conf_json_raw != None):
+        if (self.cam_status != {}) and (self.conf_json_raw != None):
             return True
         else: 
             return False

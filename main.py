@@ -121,7 +121,7 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
             else:
                 # free_space.append(False)
                 dpath.util.new(result, slot_path[index][i]+'/free', False)
-                
+
         path = slot_path[index][0].split('/')[:-2]
         path.append('free')
         dpath.util.new(result, path, total_free)
@@ -140,7 +140,7 @@ async def capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeo
 
 async def shutdown_request(indexs, url, duration, cam_timeout):
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:    
-        asyncio.gather(*[shutdown(session, i, url, duration, cam_timeout) for i in indexs])
+        result = await asyncio.gather(*[shutdown(session, i, url, duration, cam_timeout) for i in indexs])
         await session.close()
 
     return result
@@ -260,7 +260,7 @@ if __name__ == "__main__":
         logging.info("wait for config...\n")
         time.sleep(1)
     
-    logging.info(f"start_time: {pars.get_start_time()}\nend_time: {pars.get_end_time()}\nupdate_rate: {pars.get_update_rate()}\ncam_timeout: {pars.get_cam_timeout()}\nfree_threshold: {pars.get_free_threshold()}")
+    logging.info(f"start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}, free_threshold: {pars.get_free_threshold()}")
     all_sleep = False
     last = time.time()
     keyboard.on_press_key("q", exit_callback)

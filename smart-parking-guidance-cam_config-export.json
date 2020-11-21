@@ -1,5 +1,5 @@
 {
-  "CAS" : {
+  "Albar" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -64,10 +64,6 @@
         },
         "id_16":{
           "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -193,30 +189,6 @@
         "id_11":{
           "masking":[[163, 215], [224, 268]],
           "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.20"
@@ -265,30 +237,6 @@
         },
         "id_11":{
           "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -357,93 +305,12 @@
         "id_15":{
           "masking":[[621, 37], [705, 93]],
           "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.12"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.139"
     }
   },
-  "Kimia" : {
+  "Teknik_Kimia" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -511,87 +378,26 @@
           "reserved": false
         },
         "id_17":{
+          "masking":[[393, 29], [460, 75]],
+          "reserved": false
+        },
+        "id_18":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_19":{
+          "masking":[[768, 43], [846, 101]],
+          "reserved": false
+        },
+        "id_20":{
           "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
       "url" : "http://192.168.88.115"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.27"
     }
   },
-  "Labtek_5" : {
+  "Labtek_5_6" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -660,6 +466,30 @@
         },
         "id_17":{
           "masking":[[393, 29], [460, 75]],
+          "reserved": false
+        },
+        "id_18":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_19":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_20":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_21":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_22":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_23":{
+          "masking":[[768, 43], [846, 101]],
           "reserved": false
         }
       },
@@ -734,12 +564,36 @@
         "id_17":{
           "masking":[[393, 29], [460, 75]],
           "reserved": false
+        },
+        "id_18":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_19":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_20":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_21":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_22":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_23":{
+          "masking":[[768, 43], [846, 101]],
+          "reserved": false
         }
       },
       "url" : "http://192.168.88.98"
     }
   },
-  "Labtek_6" : {
+  "Labtek_7_8" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -809,152 +663,20 @@
         "id_17":{
           "masking":[[393, 29], [460, 75]],
           "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.13"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
         },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
+        "id_18":{
           "masking":[[499, 32], [568, 76]],
           "reserved": false
         },
-        "id_15":{
+        "id_19":{
           "masking":[[621, 37], [705, 93]],
           "reserved": false
         },
-        "id_16":{
+        "id_20":{
           "masking":[[768, 43], [846, 101]],
           "reserved": false
         },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.138"
-    }
-  },
-  "Labtek_7" : {
-    "cam_1" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
+        "id_21":{
           "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
@@ -1035,7 +757,7 @@
       "url" : "http://192.168.88.139"
     }
   },
-  "Labtek_8" : {
+  "Jalan4" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -1064,194 +786,6 @@
         },
         "id_07":{
           "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.12"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.139"
-    }
-  },
-  "Labtek_Biru" : {
-    "cam_1" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -1290,48 +824,49 @@
         "id_08":{
           "masking":[[786, 109], [849, 182]],
           "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.190"
+    },
+    "cam_3" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.10"
     }
   },
-  "Material" : {
+  "Altim" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -1372,34 +907,6 @@
         },
         "id_10":{
           "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -1445,34 +952,6 @@
         },
         "id_10":{
           "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -1529,105 +1008,12 @@
         "id_12":{
           "masking":[[238, 240], [309, 316]],
           "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.55"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.170"
     }
   },
-  "Oktagon" : {
+  "BSCA" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -1668,34 +1054,6 @@
         },
         "id_10":{
           "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -1746,36 +1104,12 @@
         "id_11":{
           "masking":[[163, 215], [224, 268]],
           "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.160"
     }
   },
-  "PAU" : {
+  "HMS" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -1801,126 +1135,9 @@
         "id_06":{
           "masking":[[612, 104], [674, 162]],
           "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.130"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.255"
     }
   },
   "PLN" : {
@@ -1993,6 +1210,14 @@
         "id_17":{
           "masking":[[393, 29], [460, 75]],
           "reserved": false
+        },
+        "id_18":{
+          "masking":[[768, 43], [846, 101]],
+          "reserved": false
+        },
+        "id_19":{
+          "masking":[[393, 29], [460, 75]],
+          "reserved": false
         }
       },
       "url" : "http://192.168.88.22"
@@ -2066,12 +1291,16 @@
         "id_17":{
           "masking":[[393, 29], [460, 75]],
           "reserved": false
+        },
+        "id_18":{
+          "masking":[[393, 29], [460, 75]],
+          "reserved": false
         }
       },
       "url" : "http://192.168.88.149"
     }
   },
-  "Perpus" : {
+  "Penerbit" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -2089,134 +1318,9 @@
         "id_04":{
           "masking":[[465, 82], [518, 136]],
           "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.98"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.55"
     }
   },
   "SBM" : {
@@ -2268,26 +1372,6 @@
         },
         "id_12":{
           "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -2346,28 +1430,12 @@
         "id_13":{
           "masking":[[323, 235], [397, 323]],
           "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
       "url" : "http://192.168.88.109"
     }
   },
-  "TVST" : {
+  "Samping_Albar" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -2435,87 +1503,26 @@
           "reserved": false
         },
         "id_17":{
+          "masking":[[393, 29], [460, 75]],
+          "reserved": false
+        },
+        "id_18":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_19":{
+          "masking":[[768, 43], [846, 101]],
+          "reserved": false
+        },
+        "id_20":{
           "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
       "url" : "http://192.168.88.25"
-    },
-    "cam_2" : {
-      "slot": {
-        "id_01":{
-          "masking":[[267, 67], [322, 122]],
-          "reserved": false
-        },
-        "id_02":{
-          "masking":[[334, 71], [383, 125]],
-          "reserved": false
-        },
-        "id_03":{
-          "masking":[[404, 80], [456, 127]],
-          "reserved": false
-        },
-        "id_04":{
-          "masking":[[465, 82], [518, 136]],
-          "reserved": false
-        },
-        "id_05":{
-          "masking":[[535, 98], [598, 151]],
-          "reserved": false
-        },
-        "id_06":{
-          "masking":[[612, 104], [674, 162]],
-          "reserved": false
-        },
-        "id_07":{
-          "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
-        }
-      },
-      "url" : "http://192.168.88.150"
     }
   },
-  "TekProd" : {
+  "ATM_Centre" : {
     "cam_1" : {
       "slot": {
         "id_01":{
@@ -2544,46 +1551,6 @@
         },
         "id_07":{
           "masking":[[695, 112], [763, 172]],
-          "reserved": false
-        },
-        "id_08":{
-          "masking":[[786, 109], [849, 182]],
-          "reserved": false
-        },
-        "id_09":{
-          "masking":[[31, 184], [86, 232]],
-          "reserved": false
-        },
-        "id_10":{
-          "masking":[[102, 200], [152, 251]],
-          "reserved": false
-        },
-        "id_11":{
-          "masking":[[163, 215], [224, 268]],
-          "reserved": false
-        },
-        "id_12":{
-          "masking":[[238, 240], [309, 316]],
-          "reserved": false
-        },
-        "id_13":{
-          "masking":[[323, 235], [397, 323]],
-          "reserved": false
-        },
-        "id_14":{
-          "masking":[[499, 32], [568, 76]],
-          "reserved": false
-        },
-        "id_15":{
-          "masking":[[621, 37], [705, 93]],
-          "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
           "reserved": false
         }
       },
@@ -2614,6 +1581,37 @@
         "id_06":{
           "masking":[[612, 104], [674, 162]],
           "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.19"
+    }
+  },
+  "CADL" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
         },
         "id_07":{
           "masking":[[695, 112], [763, 172]],
@@ -2650,21 +1648,11 @@
         "id_15":{
           "masking":[[621, 37], [705, 93]],
           "reserved": false
-        },
-        "id_16":{
-          "masking":[[768, 43], [846, 101]],
-          "reserved": false
-        },
-        "id_17":{
-          "masking":[[393, 29], [460, 75]],
-          "reserved": false
         }
       },
-      "url" : "http://192.168.88.19"
-    }
-  },
-  "UPT_Bahasa" : {
-    "cam_1" : {
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
       "slot": {
         "id_01":{
           "masking":[[267, 67], [322, 122]],
@@ -2729,9 +1717,80 @@
         "id_16":{
           "masking":[[768, 43], [846, 101]],
           "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    }
+  },
+  "LPPK" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_16":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
         },
         "id_17":{
-          "masking":[[393, 29], [460, 75]],
+          "masking":[[621, 37], [705, 93]],
           "reserved": false
         }
       },
@@ -2804,11 +1863,1969 @@
           "reserved": false
         },
         "id_17":{
-          "masking":[[393, 29], [460, 75]],
+          "masking":[[768, 43], [846, 101]],
           "reserved": false
         }
       },
       "url" : "http://192.168.88.29"
+    }
+  },
+  "Fisika" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_16":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_17":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_18":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "CC_Barat" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "CC_Timur" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Doping" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    },
+    "cam_3" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.229"
+    }
+  },
+  "Magister_GD" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Kria" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Geodesi" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        },
+        "id_16":{
+          "masking":[[768, 43], [846, 101]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    }
+  },
+  "Arsitektur" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Kimia_Dasar" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    }
+  },
+  "BSCB" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Perminyakan" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    }
+  },
+  "Geologi_Tambang" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    },
+    "cam_3" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.229"
+    }
+  },
+  "CIBE" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    },
+    "cam_3" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.229"
+    }
+  },
+  "GKU_Barat" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    }
+  },
+  "Teknik_Industri" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Matematika" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[621, 37], [705, 93]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    }
+  },
+  "Lab_Surya" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        },
+        "id_15":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_16":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_17":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_18":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_19":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Lab_Energi" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Radar" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "TL" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    }
+  },
+  "HMTM" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Lab_Tambang" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Teknik_Produksi" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
+  },
+  "Parkir_Timur_ISS" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        },
+        "id_14":{
+          "masking":[[499, 32], [568, 76]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.29"
+    },
+    "cam_3" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        },
+        "id_04":{
+          "masking":[[465, 82], [518, 136]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[535, 98], [598, 151]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[612, 104], [674, 162]],
+          "reserved": false
+        },
+        "id_07":{
+          "masking":[[695, 112], [763, 172]],
+          "reserved": false
+        },
+        "id_08":{
+          "masking":[[786, 109], [849, 182]],
+          "reserved": false
+        },
+        "id_09":{
+          "masking":[[31, 184], [86, 232]],
+          "reserved": false
+        },
+        "id_10":{
+          "masking":[[102, 200], [152, 251]],
+          "reserved": false
+        },
+        "id_11":{
+          "masking":[[163, 215], [224, 268]],
+          "reserved": false
+        },
+        "id_12":{
+          "masking":[[238, 240], [309, 316]],
+          "reserved": false
+        },
+        "id_13":{
+          "masking":[[323, 235], [397, 323]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.229"
     }
   }
 }
