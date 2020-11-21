@@ -121,6 +121,7 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
             else:
                 # free_space.append(False)
                 dpath.util.new(result, slot_path[index][i]+'/free', False)
+                
         path = slot_path[index][0].split('/')[:-2]
         path.append('free')
         dpath.util.new(result, path, total_free)
