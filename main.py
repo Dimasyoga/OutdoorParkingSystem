@@ -46,7 +46,7 @@ auth = firebase.auth()
 
 terminate = False
 
-async def shutdown(session, index, url, duration, cam_timeout):
+async def shutdown(session, index, url, slot_path, duration, cam_timeout):
     status = False
     result = {}
     headers = {'time': str(duration)}
@@ -66,7 +66,11 @@ async def shutdown(session, index, url, duration, cam_timeout):
     except Exception as err:
         logging.info(f"An error ocurred: {url[index]} {err}")
     
-    return index, status, result, 0
+    path = slot_path[index][0].split('/')[:-2]
+    path.append('status')
+    dpath.util.new(result, path, status)
+    
+    return index, result, 0
 
 async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold):
     pre = Preprocessing()
@@ -138,9 +142,9 @@ async def capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeo
 
     return result
 
-async def shutdown_request(indexs, url, duration, cam_timeout):
+async def shutdown_request(indexs, url, slot_path, duration, cam_timeout):
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=cam_timeout)) as session:    
-        result = await asyncio.gather(*[shutdown(session, i, url, duration, cam_timeout) for i in indexs])
+        result = await asyncio.gather(*[shutdown(session, i, url, slot_path, duration, cam_timeout) for i in indexs])
         await session.close()
 
     return result
@@ -150,7 +154,7 @@ def start_request(req_type, indexs, url, slot_path=None, slot_reserved=None, mas
     if (req_type == "capture"):
         return loop.run_until_complete(capture_request(indexs, url, slot_path, slot_reserved, mask, cam_timeout, free_threshold))
     elif (req_type == "shutdown"):
-        return loop.run_until_complete(shutdown_request(indexs, url, duration, cam_timeout))
+        return loop.run_until_complete(shutdown_request(indexs, url, slot_path, duration, cam_timeout))
 
 def get_hour_to(end):
     now = time.localtime().tm_hour
@@ -320,7 +324,7 @@ if __name__ == "__main__":
             logging.info("Sleep time")
             duration = get_hour_to(pars.get_start_time()-1)
             logging.info(f"Sleep duration {duration} Hour")
-            res = start_request("shutdown", list(range(pars.get_url())), pars.get_slot_path(), pars.get_url(), duration=duration, cam_timeout=pars.get_cam_timeout())
+            res = start_request("shutdown", list(range(pars.get_url())), pars.get_url(), pars.get_slot_path(), duration=duration, cam_timeout=pars.get_cam_timeout())
             pars.input_status(res)
             try:
                 db.child("free_space").set(pars.get_free(), user['idToken'])
