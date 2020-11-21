@@ -340,6 +340,6 @@ if __name__ == "__main__":
             time.sleep(pars.get_update_rate() - (end-start))
     
     logging.info("Program shutdown")
-    listener.stop()
     camConfig_stream.close()
     systemConfig_stream.close()
+    listener.stop()
