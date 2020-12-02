@@ -123,7 +123,7 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
 
     if status:
         pre.setMask(mask[index])
-        pre.setImage(clahe(image))
+        pre.setImage(image)
         crop = pre.getCrop()
 
         for i,frame in enumerate(crop):
