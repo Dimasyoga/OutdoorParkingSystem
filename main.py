@@ -46,6 +46,25 @@ auth = firebase.auth()
 
 terminate = False
 
+def clahe(img):
+    #-----Converting image to LAB Color model----------------------------------- 
+    lab= cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+
+    #-----Splitting the LAB image to different channels-------------------------
+    l, a, b = cv2.split(lab)
+
+    #-----Applying CLAHE to L-channel-------------------------------------------
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
+    cl = clahe.apply(l)
+
+    #-----Merge the CLAHE enhanced L-channel with the a and b channel-----------
+    limg = cv2.merge((cl,a,b))
+
+    #-----Converting image from LAB Color model to RGB model--------------------
+    final = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
+
+    return final
+
 async def shutdown(session, index, url, slot_path, duration, cam_timeout):
     status = False
     result = {}
@@ -97,13 +116,14 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
     # except Exception as err:
     #     logging.info(f"An error ocurred: {url[index]} {err}")
         
-    image = np.zeros((1600, 1200, 3), dtype="uint8")
-    time.sleep(random.uniform(0.6, 0.7))
+    image = np.zeros((1200, 1600, 3), dtype="uint8")
+    # time.sleep(random.uniform(0.7, 1.0))
+    time.sleep(1.0)
     status = True
 
     if status:
         pre.setMask(mask[index])
-        pre.setImage(image)
+        pre.setImage(clahe(image))
         crop = pre.getCrop()
 
         for i,frame in enumerate(crop):
@@ -249,8 +269,9 @@ def on_press(key):
             terminate = True
             logging.info("Terminate program")
     except AttributeError:
-        print('special key {0} pressed'.format(
-            key))
+        pass
+    finally:
+        return
 
 if __name__ == "__main__":
     
