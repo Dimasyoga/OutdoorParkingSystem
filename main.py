@@ -345,7 +345,7 @@ if __name__ == "__main__":
             logging.info("Sleep time")
             duration = get_hour_to(pars.get_start_time()-1)
             logging.info(f"Sleep duration {duration} Hour")
-            res = start_request("shutdown", list(range(pars.get_url())), pars.get_url(), pars.get_slot_path(), duration=duration, cam_timeout=pars.get_cam_timeout())
+            res = start_request("shutdown", list(range(len(pars.get_url()))), pars.get_url(), slot_path=pars.get_slot_path(), duration=duration, cam_timeout=pars.get_cam_timeout())
             pars.input_status(res)
             try:
                 db.child("free_space").set(pars.get_free(), user['idToken'])
