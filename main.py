@@ -97,24 +97,24 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
     result = {}
     total_free = 0
     
-    # try:
-    #     async with session.get(url[index]+"/capture") as response:
-    #         # response.raise_for_status()
-    #         if (response.status == 200):
-    #             logging.info(f"Response status ({url[index]}): {response.status}")
-    #             image = np.asarray(bytearray(await response.read()), dtype="uint8")
-    #             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-    #             status = True
+    try:
+        async with session.get(url[index]+"/capture") as response:
+            # response.raise_for_status()
+            if (response.status == 200):
+                logging.info(f"Response status ({url[index]}): {response.status}")
+                image = np.asarray(bytearray(await response.read()), dtype="uint8")
+                image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+                status = True
 
         
-    # except requests.exceptions.HTTPError as http_err:
-    #     logging.info(f"HTTP error occurred: {url[index]} {http_err}")
+    except requests.exceptions.HTTPError as http_err:
+        logging.info(f"HTTP error occurred: {url[index]} {http_err}")
     
-    # except aiohttp.ClientConnectorError as e:
-    #     logging.info(f'Connection Error {url[index]} {str(e)}')
+    except aiohttp.ClientConnectorError as e:
+        logging.info(f'Connection Error {url[index]} {str(e)}')
         
-    # except Exception as err:
-    #     logging.info(f"An error ocurred: {url[index]} {err}")
+    except Exception as err:
+        logging.info(f"An error ocurred: {url[index]} {err}")
         
     image = np.zeros((1200, 1600, 3), dtype="uint8")
     # time.sleep(random.uniform(0.7, 1.0))
@@ -183,6 +183,15 @@ def get_hour_to(end):
         return 24 - abs(delta)
     else:
         return delta
+def sleep(user):
+    duration = get_hour_to(pars.get_start_time()-1)
+    logging.info(f"Sleep duration {duration} Hour")
+    res = start_request("shutdown", list(range(len(pars.get_url()))), pars.get_url(), slot_path=pars.get_slot_path(), duration=duration, cam_timeout=pars.get_cam_timeout())
+    pars.input_status(res)
+    try:
+        db.child("free_space").set(pars.get_free(), user['idToken'])
+    except:
+        logging.info("update upload failed")
 
 def work_single_core():
     cam_addr_list = pars.get_url()
@@ -193,7 +202,7 @@ def work_single_core():
     logging.info(f"result: {result}")
     pars.input_status(result)
 
-def work():
+def work(user):
     logging.info("start work")
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
@@ -202,7 +211,7 @@ def work():
     slot_path = pars.get_slot_path()
     slot_reserved = pars.get_slot_reserved()
 
-    NUM_CORES = cpu_count()
+    NUM_CORES = cpu_count() * 2
     # NUM_CORES = 1
     NUM_URL = len(cam_addr_list)
     URL_PER_CORE = floor(NUM_URL / NUM_CORES)
@@ -253,11 +262,12 @@ def work():
             result.append(f)
     logging.info("inference done, input result")
     # logging.info(f"result: {result}")
-    # pars.input_status(result)
+    logging.info(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
+    
     try:
-        logging.info(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
+        db.child("free_space").set(pars.get_free(), user['idToken'])
     except:
-        logging.info("input status failed")
+        logging.info("update upload failed")
     
     logging.info("work done")
 
@@ -284,7 +294,7 @@ if __name__ == "__main__":
             connect = True
         except:
             logging.info("connection to database failed")
-            time.sleep(1)
+            time.sleep(2)
     
     listener = keyboard.Listener(on_press=on_press)
     listener.start()
@@ -293,13 +303,24 @@ if __name__ == "__main__":
         logging.info("wait for config...\n")
         time.sleep(2)
     
-    # logging.info(f"start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}, free_threshold: {pars.get_free_threshold()}")
-    all_sleep = False
+    sleep_mode = False
     last = time.time()
 
     while not terminate:
-        start = time.time()
-
+        update_time = 0.0
+        
+        if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
+            logging.info("work time")
+            sleep_mode = False
+            update_time = timeit.timeit(lambda: work(user), globals=globals(), number=1)
+            logging.info(f"Total time for update is {update_time}")
+            
+        elif not sleep_mode:
+            logging.info("Sleep time")
+            update_time = timeit.timeit(lambda: sleep(user), globals=globals(), number=1)
+            logging.info("system sleep")
+            sleep_mode = True
+        
         if time.time() > (last + 3000):
             last = time.time()
             try:
@@ -308,6 +329,7 @@ if __name__ == "__main__":
                 user = auth.refresh(user['refreshToken'])
             except:
                 logging.info("refresh token failed")
+
             camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
@@ -318,6 +340,7 @@ if __name__ == "__main__":
             except Exception:
                 # client.captureException(tags={'handled_status': 'catched_and_logged'})
                 logging.info("close stream camConfig failed")
+
             camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
         
         if not systemConfig_stream.thread.is_alive():
@@ -327,38 +350,11 @@ if __name__ == "__main__":
             except Exception:
                 # client.captureException(tags={'handled_status': 'catched_and_logged'})
                 logging.info("close stream systemConfig failed")
+
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
-        if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
-            logging.info("work time")
-            all_sleep = False
-            logging.info(f"Process time is {timeit.timeit(work, number=1)}")
-            # logging.info(f"Process time is {timeit.timeit(work_single_core, number=1)}")
-            # db.child("free_space").set(pars.get_free(), user['idToken'])
-            # logging.info(f"Upload time is {timeit.timeit("db.child("free_space").set(pars.get_free(), user['idToken'])", number=1)}")
-            try:
-                db.child("free_space").set(pars.get_free(), user['idToken'])
-            except:
-                logging.info("update upload failed")
-            
-        elif not all_sleep:
-            logging.info("Sleep time")
-            duration = get_hour_to(pars.get_start_time()-1)
-            logging.info(f"Sleep duration {duration} Hour")
-            res = start_request("shutdown", list(range(len(pars.get_url()))), pars.get_url(), slot_path=pars.get_slot_path(), duration=duration, cam_timeout=pars.get_cam_timeout())
-            pars.input_status(res)
-            try:
-                db.child("free_space").set(pars.get_free(), user['idToken'])
-            except:
-                logging.info("update upload failed")
-            logging.info("system sleep")
-            all_sleep = True
-        
-        end = time.time()
-        logging.info(f"Total time for update: {end-start}")
-        
-        if ((end-start) < pars.get_update_rate()):
-            time.sleep(pars.get_update_rate() - (end-start))
+        if (update_time < pars.get_update_rate()):
+            time.sleep(pars.get_update_rate() - update_time)
     
     logging.info("Program shutdown")
     camConfig_stream.close()
