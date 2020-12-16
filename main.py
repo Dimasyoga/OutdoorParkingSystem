@@ -115,10 +115,10 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
     except Exception as err:
         logging.info(f"An error ocurred: {url[index]} {err}")
         
-    image = np.zeros((1200, 1600, 3), dtype="uint8")
+    # image = np.zeros((1200, 1600, 3), dtype="uint8")
     # time.sleep(random.uniform(0.7, 1.0))
-    time.sleep(1.0)
-    status = True
+    # time.sleep(1.0)
+    # status = True
 
     if status:
         pre.setMask(mask[index])
@@ -208,7 +208,7 @@ def work(user):
     slot_path = pars.get_slot_path()
     slot_reserved = pars.get_slot_reserved()
 
-    NUM_CORES = cpu_count() * 2
+    NUM_CORES = cpu_count()
     # NUM_CORES = 1
     NUM_URL = len(cam_addr_list)
     URL_PER_CORE = floor(NUM_URL / NUM_CORES)
@@ -249,12 +249,14 @@ def work(user):
     for future in futures:
         for f in future.result():
             result.append(f)
+    
     logging.info("inference done, input result")
     # logging.info(f"result: {result}")
-    logging.info(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
-    
+    # logging.info(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
+    pars.input_status(result)
+
     try:
-        logging.info(f"upload time is {timeit.timeit(lambda: db.child("free_space").set(pars.get_free(), user['idToken']), globals=globals(), number=1)}")
+        logging.info(f"upload time is {timeit.timeit(lambda: db.child('free_space').set(pars.get_free(), user['idToken']), globals=globals(), number=1)}")
     except:
         logging.info("update upload failed")
     
@@ -264,7 +266,7 @@ def work(user):
 def on_press(key):
     global terminate
     try:
-        if key.char == 'q':
+        if key.char == 'x':
             terminate = True
             logging.info("Terminate program")
     except AttributeError:
@@ -297,7 +299,7 @@ if __name__ == "__main__":
 
     while not terminate:
         update_time = 0.0
-        
+        logging.info(f"Local time : {time.strftime('%b %d %Y %H:%M:%S', time.localtime())}")
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
             logging.info("work time")
             sleep_mode = False
