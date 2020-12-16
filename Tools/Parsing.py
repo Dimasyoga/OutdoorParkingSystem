@@ -126,8 +126,8 @@ class Parsing(object):
     def get_update_rate(self):
         return self.conf_json_raw['update_rate']
     
-    def get_free_threshold(self):
-        return self.conf_json_raw['free_threshold']
+    def get_threshold(self):
+        return self.conf_json_raw['threshold']
     
     def get_cam_timeout(self):
         return self.conf_json_raw['cam_timeout']
