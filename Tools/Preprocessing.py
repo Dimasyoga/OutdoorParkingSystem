@@ -6,6 +6,7 @@ from numpy.linalg import lstsq
 
 FINAL_LINE_COLOR = (0, 255, 0)
 WORKING_LINE_COLOR = (255, 0, 0)
+font = cv2.FONT_HERSHEY_SIMPLEX
 
 # ============================================================================
 
@@ -30,7 +31,6 @@ class Preprocessing(object):
         elif event == cv2.EVENT_LBUTTONDOWN:
             # Left click means adding a point at current position to the list of points
             print("Adding point #%d with position(%d,%d)" % (len(self.points), x, y))
-            # self.points.append((x, y))
             if (self.clickCount == 0):
                 self.points.append((x, y))
                 self.clickCount += 1
@@ -41,7 +41,7 @@ class Preprocessing(object):
                 self.clickCount = 0
 
     def addMask(self):
-        # Let's create our working window and set a mouse callback to handle events
+        # create working window and set a mouse callback to handle events
         cv2.namedWindow("Editing MaskBox", flags=cv2.WINDOW_AUTOSIZE)
         clone = self.ori_img.copy()
         cv2.waitKey(1)
@@ -52,8 +52,7 @@ class Preprocessing(object):
                 cv2.rectangle(clone, box[0], box[1], FINAL_LINE_COLOR, 1)
 
         while(True):
-            # This is our drawing loop, we just continuously draw new images
-            # and show them in the named window
+            # drawing loop
             print("maskBox: ", self.maskBox)
             print("position", self.points)
             
@@ -67,9 +66,6 @@ class Preprocessing(object):
 
             # Update the window
             cv2.imshow("Editing MaskBox", clone)
-            # And wait 50ms before next iteration (this will pump window messages meanwhile)
-            # if cv2.waitKey(50) == 27: # ESC hit
-            #     self.done = True
 
             key = cv2.waitKey(1)
             if (key == ord("r")):
@@ -132,36 +128,13 @@ class Preprocessing(object):
         crop = []
         if (len(self.maskBox) > 0):
             for box in self.maskBox:
-                cropped = self.ori_img[box[0][1]:box[1][1], box[0][0]:box[1][0]]
+                try:
+                    cropped = self.ori_img[box[0][1]:box[1][1], box[0][0]:box[1][0]]
+                except:
+                    cropped = np.ones((150, 150, 3), dtype="uint8")
                 crop.append(cropped)
         
         return crop
-    
-    def setCloudMask(self, message):
-
-        self.maskBox = []
-
-        if message["path"] == '/':
-
-            # messageSorted = sorted(message["data"])
-            for value in message["data"].values():
-                mask = []
-                points = value.split(';')
-                for pt in points:
-                    point = pt.split(',')
-                    mask.append((int(point[0]), int(point[1])))
-                
-                self.maskBox.append(mask)
-        
-        # print(self.maskBox)
-
-    def getCloudMask(self):
-        mask = {}
-
-        for idx, box in enumerate(self.maskBox):
-            mask['slot_'+str(idx)] = str(box[0][0])+','+str(box[0][1])+';'+str(box[1][0])+','+str(box[1][1])+';'+str(box[2][0])+','+str(box[2][1])+';'+str(box[3][0])+','+str(box[3][1])
-        
-        return mask
 
     def getMask(self):
         return self.maskBox
@@ -172,6 +145,24 @@ class Preprocessing(object):
     def setImage(self, img):
         self.ori_img = img
 
+    def getImage_masked(self, pred):
+        frame = self.ori_img.copy()
+
+        if (len(self.maskBox) > 0) and (len(pred) > 0):
+            for idx, box in enumerate(self.maskBox):
+                cv2.rectangle(frame, box[0], box[1], FINAL_LINE_COLOR, 1)
+            
+                if pred[idx]==0:
+                    cv2.putText(frame,'Kosong', box[0], font, 0.5,(180, 0, 0),2)
+                    cv2.putText(frame,'Kosong', box[0], font, 0.5,(255, 0, 0),1)
+                elif pred[idx]==1:
+                    cv2.putText(frame,'Isi', box[0], font, 0.5,(180, 0, 0),2)
+                    cv2.putText(frame,'Isi', box[0], font, 0.5,(255, 0, 0),1)
+                else:
+                    cv2.putText(frame,'Dipesan', box[0], font, 0.5,(180, 0, 0),2)
+                    cv2.putText(frame,'Dipesan', box[0], font, 0.5,(255, 0, 0),1)
+
+        return frame
 
 # if __name__ == "__main__":
 #     image = cv2.imread('C:/Users/Dim/Pictures/Prambanan.jpg')

@@ -3901,5 +3901,41 @@
       },
       "url" : "http://192.168.88.229"
     }
+  },
+  "1Kos" : {
+    "cam_1" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.1.101"
+    },
+    "cam_2" : {
+      "slot": {
+        "id_01":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_02":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_03":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
+        }
+      },
+      "url" : "http://192.168.88.152"
+    }
   }
 }

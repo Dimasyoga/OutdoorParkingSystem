@@ -14,6 +14,7 @@ class Parsing(object):
         self.masking_list = []
         self.slot_path = []
         self.slot_reserved = []
+        self.cam_name = []
     
     def update(self):
         self.cam_status = {}
@@ -22,11 +23,13 @@ class Parsing(object):
         self.masking_list = []
         self.slot_path = []
         self.slot_reserved = []
+        self.cam_name = []
         slot_count = 0
         cam_count = 0
 
         for (loc, cam) in self.json_raw.items():
             for (k, v) in cam.items():
+                self.cam_name.append(loc+'/'+k)
                 cam_count += 1
                 self.url_list.append(v['url'])
                 self.cam_path.append(loc + '/' + k)
@@ -64,6 +67,7 @@ class Parsing(object):
 
         for (loc, cam) in self.json_raw.items():
             for (k, v) in cam.items():
+                self.cam_name.append(loc+'/'+k)
                 self.url_list.append(v['url'])
                 self.cam_path.append(loc + '/' + k)
                 path = loc + '/' + k
@@ -144,16 +148,15 @@ class Parsing(object):
     def get_slot_reserved(self):
         return self.slot_reserved
     
+    def get_cam_name(self):
+        return self.cam_name
+    
+    def get_json_raw(self):
+        return self.json_raw
+    
     def input_status(self, inp):
-        # res = {}
         for index, result, total_free in inp:
             dpath.util.merge(self.cam_status, result, flags=(1 << 1))
-            # dpath.util.set(self.cam_status, '/', result)
-            # res.update(result)
-            # print(result)
-            # dpath.util.set(self.cam_status, self.cam_path[index]+'/status', status)
-            # dpath.util.set(self.cam_status, self.cam_path[index]+'/free', total_free)
-        # print(res)
 
     def get_free(self):
         output = json.loads(json.dumps(self.cam_status))

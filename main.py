@@ -1,8 +1,8 @@
-import aiohttp                          # For asynchronously making HTTP requests
+import aiohttp                          
 import asyncio
-import concurrent.futures               # Allows creating new processes
-from multiprocessing import cpu_count   # Returns our number of CPU cores
-                                        # Helps divide up our requests evenly across our CPU cores
+import concurrent.futures               
+from multiprocessing import cpu_count   
+                                        
 from math import floor
 import numpy as np
 import cv2
@@ -136,7 +136,7 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
             interpreter.invoke()
             output = interpreter.get_tensor(output_details[0]['index'])
 
-            if (output[0][0] < threshold):
+            if (output[0][0] <= threshold):
                 dpath.util.new(result, slot_path[index][i]+'/free', True)
                 if not slot_reserved[index][i]:
                     total_free += 1
@@ -294,6 +294,8 @@ if __name__ == "__main__":
         logging.info("wait for config...\n")
         time.sleep(2)
     
+    logging.info(f"System config is >>> start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, threshold: {pars.get_threshold()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}")
+
     sleep_mode = False
     last = time.time()
 
