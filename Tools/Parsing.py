@@ -14,7 +14,7 @@ class Parsing(object):
         self.masking_list = []
         self.slot_path = []
         self.slot_reserved = []
-        self.cam_name = []
+        # self.cam_name = []
     
     def update(self):
         self.cam_status = {}
@@ -23,13 +23,13 @@ class Parsing(object):
         self.masking_list = []
         self.slot_path = []
         self.slot_reserved = []
-        self.cam_name = []
+        # self.cam_name = []
         slot_count = 0
         cam_count = 0
 
         for (loc, cam) in self.json_raw.items():
             for (k, v) in cam.items():
-                self.cam_name.append(loc+'/'+k)
+                # self.cam_name.append(loc+'/'+k)
                 cam_count += 1
                 self.url_list.append(v['url'])
                 self.cam_path.append(loc + '/' + k)
@@ -67,7 +67,7 @@ class Parsing(object):
 
         for (loc, cam) in self.json_raw.items():
             for (k, v) in cam.items():
-                self.cam_name.append(loc+'/'+k)
+                # self.cam_name.append(loc+'/'+k)
                 self.url_list.append(v['url'])
                 self.cam_path.append(loc + '/' + k)
                 path = loc + '/' + k
@@ -148,11 +148,11 @@ class Parsing(object):
     def get_slot_reserved(self):
         return self.slot_reserved
     
-    def get_cam_name(self):
-        return self.cam_name
+    # def get_cam_name(self):
+    #     return self.cam_name
     
-    def get_json_raw(self):
-        return self.json_raw
+    # def get_json_raw(self):
+    #     return self.json_raw
     
     def input_status(self, inp):
         for index, result, total_free in inp:

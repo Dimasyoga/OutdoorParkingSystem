@@ -3916,6 +3916,18 @@
         "id_03":{
           "masking":[[404, 80], [456, 127]],
           "reserved": false
+        },
+        "id_04":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
         }
       },
       "url" : "http://192.168.1.101"
@@ -3933,9 +3945,21 @@
         "id_03":{
           "masking":[[404, 80], [456, 127]],
           "reserved": false
+        },
+        "id_04":{
+          "masking":[[267, 67], [322, 122]],
+          "reserved": false
+        },
+        "id_05":{
+          "masking":[[334, 71], [383, 125]],
+          "reserved": false
+        },
+        "id_06":{
+          "masking":[[404, 80], [456, 127]],
+          "reserved": false
         }
       },
-      "url" : "http://192.168.88.152"
+      "url" : "http://192.168.1.106"
     }
   }
 }
