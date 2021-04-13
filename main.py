@@ -12,15 +12,12 @@ import tflite_runtime.interpreter as tflite
 from Tools import Preprocessing
 from Tools import Parsing
 import json
-import sys
 import time
-import random
 import pyrebase
 from pynput import keyboard
 import dpath.util
 import logging
-
-logging.getLogger().setLevel(logging.INFO)
+import argparse
 
 with open("firebase_config.json", 'r') as f:
     firebase_config = json.load(f)
@@ -46,25 +43,6 @@ auth = firebase.auth()
 
 terminate = False
 
-def clahe(img):
-    #-----Converting image to LAB Color model----------------------------------- 
-    lab= cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
-
-    #-----Splitting the LAB image to different channels-------------------------
-    l, a, b = cv2.split(lab)
-
-    #-----Applying CLAHE to L-channel-------------------------------------------
-    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
-    cl = clahe.apply(l)
-
-    #-----Merge the CLAHE enhanced L-channel with the a and b channel-----------
-    limg = cv2.merge((cl,a,b))
-
-    #-----Converting image from LAB Color model to RGB model--------------------
-    final = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
-
-    return final
-
 async def shutdown(session, index, url, slot_path, duration, cam_timeout):
     status = False
     result = {}
@@ -77,13 +55,13 @@ async def shutdown(session, index, url, slot_path, duration, cam_timeout):
 
         
     except requests.exceptions.HTTPError as http_err:
-        logging.info(f"HTTP error occurred: {url[index]} {http_err}")
+        logging.error(f"HTTP error occurred: {url[index]} {http_err}")
     
     except aiohttp.ClientConnectorError as e:
-        logging.info(f'Connection Error {url[index]} {str(e)}')
+        logging.error(f'Connection Error {url[index]} {str(e)}')
         
     except Exception as err:
-        logging.info(f"An error ocurred: {url[index]} {err}")
+        logging.error(f"An error ocurred: {url[index]} {err}")
     
     path = slot_path[index][0].split('/')[:-2]
     path.append('status')
@@ -105,20 +83,14 @@ async def capture(session, index, url, slot_path, slot_reserved, mask, cam_timeo
                 image = cv2.imdecode(image, cv2.IMREAD_COLOR)
                 status = True
 
-        
     except requests.exceptions.HTTPError as http_err:
-        logging.info(f"HTTP error occurred: {url[index]} {http_err}")
+        logging.error(f"HTTP error occurred: {url[index]} {http_err}")
     
     except aiohttp.ClientConnectorError as e:
-        logging.info(f'Connection Error {url[index]} {str(e)}')
+        logging.error(f'Connection Error {url[index]} {str(e)}')
         
     except Exception as err:
-        logging.info(f"An error ocurred: {url[index]} {err}")
-        
-    # image = np.zeros((1200, 1600, 3), dtype="uint8")
-    # time.sleep(random.uniform(0.7, 1.0))
-    # time.sleep(1.0)
-    # status = True
+        logging.error(f"An error ocurred: {url[index]} {err}")
 
     if status:
         pre.setMask(mask[index])
@@ -180,27 +152,19 @@ def get_hour_to(end):
         return 24 - abs(delta)
     else:
         return delta
+
 def sleep(user):
     duration = get_hour_to(pars.get_start_time()-1)
-    logging.info(f"Sleep duration {duration} Hour")
+    logging.debug(f"Sleep duration {duration} Hour")
     res = start_request("shutdown", list(range(len(pars.get_url()))), pars.get_url(), slot_path=pars.get_slot_path(), duration=duration, cam_timeout=pars.get_cam_timeout())
     pars.input_status(res)
     try:
         db.child("free_space").set(pars.get_free(), user['idToken'])
     except:
-        logging.info("update upload failed")
-
-def work_single_core():
-    cam_addr_list = pars.get_url()
-    maskParam = pars.get_masking()
-
-    result = start_request("capture", range(len(cam_addr_list)), cam_addr_list, mask=maskParam, slot_path=pars.get_slot_path(), slot_reserved=pars.get_slot_reserved(), cam_timeout=pars.get_cam_timeout(), threshold=pars.get_threshold())
-
-    logging.info(f"result: {result}")
-    pars.input_status(result)
+        logging.error("upload to database failed")
 
 def work(user):
-    logging.info("start work")
+    logging.info("initiate update process")
     cam_addr_list = pars.get_url()
     maskParam = pars.get_masking()
     timeout = pars.get_cam_timeout()
@@ -209,7 +173,6 @@ def work(user):
     slot_reserved = pars.get_slot_reserved()
 
     NUM_CORES = cpu_count()
-    # NUM_CORES = 1
     NUM_URL = len(cam_addr_list)
     URL_PER_CORE = floor(NUM_URL / NUM_CORES)
     REMAINDER = NUM_URL % NUM_CORES
@@ -250,17 +213,20 @@ def work(user):
         for f in future.result():
             result.append(f)
     
-    logging.info("inference done, input result")
-    # logging.info(f"result: {result}")
-    # logging.info(f"Input time is {timeit.timeit(lambda: pars.input_status(result), globals=globals(), number=1)}")
+    logging.debug("inference done, generate result")
+    logging.debug(f"result: {result}")
+    start = time.time()
     pars.input_status(result)
+    logging.debug(f"Input time is {time.time() - start} second")
 
     try:
-        logging.info(f"upload time is {timeit.timeit(lambda: db.child('free_space').set(pars.get_free(), user['idToken']), globals=globals(), number=1)}")
+        start = time.time()
+        db.child('free_space').set(pars.get_free(), user['idToken'])
+        logging.debug(f"upload time is {time.time() - start} second")
     except:
-        logging.info("update upload failed")
+        logging.error("upload to database failed")
     
-    logging.info("work done")
+    logging.info("update finished")
 
 
 def on_press(key):
@@ -268,14 +234,40 @@ def on_press(key):
     try:
         if key.char == 'x':
             terminate = True
-            logging.info("Terminate program")
+            logging.info("Terminating program")
     except AttributeError:
         pass
     finally:
         return
 
 if __name__ == "__main__":
-    
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-log", 
+        "--log", 
+        default="info",
+        help=(
+            "Provide logging level. "
+            "Example --log debug', default='info'"
+            )
+    )
+
+    options = parser.parse_args()
+    levels = {
+        'critical': logging.CRITICAL,
+        'error': logging.ERROR,
+        'warn': logging.WARNING,
+        'warning': logging.WARNING,
+        'info': logging.INFO,
+        'debug': logging.DEBUG
+    }
+    level = levels.get(options.log.lower())
+    if level is None:
+        raise ValueError(
+            f"log level given: {options.log}"
+            f" -- must be one of: {' | '.join(levels.keys())}")
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=level)
+
     connect = False
     while not connect:
         try:
@@ -284,34 +276,34 @@ if __name__ == "__main__":
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
             connect = True
         except:
-            logging.info("connection to database failed")
+            logging.critical("connection to database failed")
             time.sleep(2)
     
     listener = keyboard.Listener(on_press=on_press)
     listener.start()
 
     while not pars.config_ready() and not terminate:
-        logging.info("wait for config...\n")
+        logging.info("wait for config...")
         time.sleep(2)
     
-    logging.info(f"System config is >>> start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, threshold: {pars.get_threshold()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}")
+    logging.info("System config ready")
+    logging.debug(f"System config is >>> start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, threshold: {pars.get_threshold()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}")
 
     sleep_mode = False
     last = time.time()
 
     while not terminate:
         update_time = 0.0
-        logging.info(f"Local time : {time.strftime('%b %d %Y %H:%M:%S', time.localtime())}")
+        logging.debug(f"Local time : {time.strftime('%b %d %Y %H:%M:%S', time.localtime())}")
         if not (time.localtime().tm_hour >= pars.get_end_time() or time.localtime().tm_hour < pars.get_start_time()):
             logging.info("work time")
             sleep_mode = False
             update_time = timeit.timeit(lambda: work(user), globals=globals(), number=1)
-            logging.info(f"Total time for update is {update_time}")
+            logging.debug(f"Total time for update is {update_time}")
             
         elif not sleep_mode:
             logging.info("Sleep time")
             update_time = timeit.timeit(lambda: sleep(user), globals=globals(), number=1)
-            logging.info("system sleep")
             sleep_mode = True
         
         if time.time() > (last + 3000):
@@ -321,34 +313,39 @@ if __name__ == "__main__":
                 systemConfig_stream.close()
                 user = auth.refresh(user['refreshToken'])
             except:
-                logging.info("refresh token failed")
+                logging.error("refresh token failed")
 
-            camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
-            systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
+            connect = False
+            while not connect:
+                try:
+                    camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+                    systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
+                    connect = True
+                except:
+                    logging.critical("connection to database failed")
+                    time.sleep(2)
         
         if not camConfig_stream.thread.is_alive():
-            logging.info("camConfig_stream is dead")
+            logging.warning("camConfig_stream is dead")
             try:
                 camConfig_stream.close()
             except Exception:
-                # client.captureException(tags={'handled_status': 'catched_and_logged'})
-                logging.info("close stream camConfig failed")
+                logging.error("close stream camConfig failed")
 
             camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
         
         if not systemConfig_stream.thread.is_alive():
-            logging.info("systemConfig_stream is dead")
+            logging.warning("systemConfig_stream is dead")
             try:
                 systemConfig_stream.close()
             except Exception:
-                # client.captureException(tags={'handled_status': 'catched_and_logged'})
-                logging.info("close stream systemConfig failed")
+                logging.error("close stream systemConfig failed")
 
             systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
         if (update_time < pars.get_update_rate()):
             time.sleep(pars.get_update_rate() - update_time)
     
-    logging.info("Program shutdown")
+    logging.info("Shutdown...")
     camConfig_stream.close()
     systemConfig_stream.close()

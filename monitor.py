@@ -90,6 +90,39 @@ def capture(url, mask, reserved, cam_timeout, threshold):
     #     img = np.ones((1200, 1600, 3), dtype="uint8")x
     return pre.getImage_masked(pred)
 
+def manual_masking():
+    img = cv2.imread(r'C:/Users/Dim/OneDrive/Documents/TA192002006/Dokumentasi/capture.jpg', cv2.IMREAD_COLOR)
+    print(type(img))
+    pre.setImage(img)
+    pre.addMask()
+    crop = pre.getCrop()
+    pred = []
+
+    for i,frame in enumerate(crop):
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = cv2.resize(frame, (input_shape[1], input_shape[2]), interpolation = cv2.INTER_CUBIC)
+        frame = frame.astype(np.float32)
+        frame = frame / 255.
+        frame = np.expand_dims(frame, 0)
+
+        interpreter.set_tensor(input_details[0]['index'], frame)
+        interpreter.invoke()
+        output = interpreter.get_tensor(output_details[0]['index'])
+
+        if True:
+            if (output[0][0] <= 0.004):
+                pred.append(0)
+            else:
+                pred.append(1)
+        else:
+            pred.append(2)
+    
+    # try:
+    #     img = pre.getImage_masked(pred)
+    # except:
+    #     img = np.ones((1200, 1600, 3), dtype="uint8")x
+    return pre.getImage_masked(pred)
+
 def on_press(key):
     global terminate
     try:
@@ -102,73 +135,78 @@ def on_press(key):
         return
 
 if __name__ == '__main__':
-    connect = False
-    while not connect:
-        try:
-            user = auth.sign_in_with_email_and_password(firebase_config["credential"]["email"], firebase_config["credential"]["password"])
-            camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
-            systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
-            connect = True
-        except:
-            logging.info("connection to database failed")
-            time.sleep(2)
+    # connect = False
+    # while not connect:
+    #     try:
+    #         user = auth.sign_in_with_email_and_password(firebase_config["credential"]["email"], firebase_config["credential"]["password"])
+    #         camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+    #         systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
+    #         connect = True
+    #     except:
+    #         logging.info("connection to database failed")
+    #         time.sleep(2)
     
-    listener = keyboard.Listener(on_press=on_press)
-    listener.start()
+    # listener = keyboard.Listener(on_press=on_press)
+    # listener.start()
 
-    while not pars.config_ready() and not terminate:
-        logging.info("wait for config...\n")
-        time.sleep(2)
+    # while not pars.config_ready() and not terminate:
+    #     logging.info("wait for config...\n")
+    #     time.sleep(2)
     
-    json_raw = pars.get_json_raw()
-    logging.info(f"System config is >>> start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, threshold: {pars.get_threshold()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}")
-    last = time.time()
+    # json_raw = pars.get_json_raw()
+    # logging.info(f"System config is >>> start_time: {pars.get_start_time()}, end_time: {pars.get_end_time()}, threshold: {pars.get_threshold()}, update_rate: {pars.get_update_rate()}, cam_timeout: {pars.get_cam_timeout()}")
+    # last = time.time()
 
-    logging.info(f"camera list:\n{pars.get_cam_name()}")
-    cam_index = int(input())
+    # logging.info(f"camera list:\n{pars.get_cam_name()}")
+    # cam_index = int(input())
 
-    start = time.time()
-    frame = np.ones((1200, 1600, 3), dtype="uint8")
-    while not terminate:
-        cv2.imshow('monitor', frame)
-        cv2.waitKey(20)
-        # if (time.time() - start > pars.get_update_rate()):
-        if (time.time() - start > 1):
-            start = time.time()
-            frame = capture(pars.get_url()[cam_index], pars.get_masking()[cam_index], pars.get_slot_reserved()[cam_index], pars.get_cam_timeout(), pars.get_threshold())
+    # start = time.time()
+    # frame = np.ones((1200, 1600, 3), dtype="uint8")
+    # while not terminate:
+    #     cv2.imshow('monitor', frame)
+    #     cv2.waitKey(20)
+    #     # if (time.time() - start > pars.get_update_rate()):
+    #     if (time.time() - start > 1):
+    #         start = time.time()
+    #         frame = capture(pars.get_url()[cam_index], pars.get_masking()[cam_index], pars.get_slot_reserved()[cam_index], pars.get_cam_timeout(), pars.get_threshold())
 
-        if time.time() > (last + 3000):
-            last = time.time()
-            try:
-                camConfig_stream.close()
-                systemConfig_stream.close()
-                user = auth.refresh(user['refreshToken'])
-            except:
-                logging.info("refresh token failed")
+    #     if time.time() > (last + 3000):
+    #         last = time.time()
+    #         try:
+    #             camConfig_stream.close()
+    #             systemConfig_stream.close()
+    #             user = auth.refresh(user['refreshToken'])
+    #         except:
+    #             logging.info("refresh token failed")
 
-            camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
-            systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
+    #         camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+    #         systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
         
-        if not camConfig_stream.thread.is_alive():
-            logging.info("camConfig_stream is dead")
-            try:
-                camConfig_stream.close()
-            except Exception:
-                # client.captureException(tags={'handled_status': 'catched_and_logged'})
-                logging.info("close stream camConfig failed")
+    #     if not camConfig_stream.thread.is_alive():
+    #         logging.info("camConfig_stream is dead")
+    #         try:
+    #             camConfig_stream.close()
+    #         except Exception:
+    #             # client.captureException(tags={'handled_status': 'catched_and_logged'})
+    #             logging.info("close stream camConfig failed")
 
-            camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
+    #         camConfig_stream = db.child("cam_config").stream(pars.stream_handler, user['idToken'])
         
-        if not systemConfig_stream.thread.is_alive():
-            logging.info("systemConfig_stream is dead")
-            try:
-                systemConfig_stream.close()
-            except Exception:
-                # client.captureException(tags={'handled_status': 'catched_and_logged'})
-                logging.info("close stream systemConfig failed")
+    #     if not systemConfig_stream.thread.is_alive():
+    #         logging.info("systemConfig_stream is dead")
+    #         try:
+    #             systemConfig_stream.close()
+    #         except Exception:
+    #             # client.captureException(tags={'handled_status': 'catched_and_logged'})
+    #             logging.info("close stream systemConfig failed")
 
-            systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
+    #         systemConfig_stream = db.child("system_config").stream(pars.config_handler, user['idToken'])
     
+    # cv2.destroyAllWindows()
+    # camConfig_stream.close()
+    # systemConfig_stream.close()
+
+    frame = manual_masking()
+    cv2.imshow('monitor', frame)
+    cv2.waitKey(0)
     cv2.destroyAllWindows()
-    camConfig_stream.close()
-    systemConfig_stream.close()

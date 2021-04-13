@@ -12,6 +12,25 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 
 class Preprocessing(object):
+    """
+    A class used to process image and masking
+
+    Attributes
+    ----------
+    ori_img : cv2 mat
+        a cv2 image for reference image
+    done : bool
+        a flag for editing process
+    current : tuple
+        the current position of mouse
+    points : list of tuple
+        list of point defining rectangular
+    maskBox : list of rectangular
+        list of rectangular defining our masking parameter
+    clickCount: int
+        mouse click count
+
+    """
     def __init__(self):
         self.ori_img = None
 
@@ -21,8 +40,16 @@ class Preprocessing(object):
         self.maskBox = []
         self.clickCount = 0
 
-    def on_mouse(self, event, x, y, buttons, user_param):
-        # Mouse callback that gets called for every mouse event (i.e. moving, clicking, etc.)
+    def on_mouse(self, event, x, y):
+        """Mouse callback that gets called for every mouse event (i.e. moving, clicking, etc.)
+
+        Parameters
+        ----------
+        event : cv2 event
+        x : mouse x coordinate
+        y : mouse y coordinate
+
+        """
 
         if event == cv2.EVENT_MOUSEMOVE:
             # We want to be able to draw the line-in-progress, so update current mouse position
@@ -41,6 +68,10 @@ class Preprocessing(object):
                 self.clickCount = 0
 
     def addMask(self):
+        """Create working windows to draw mask with image that already set before,
+            setImage() need to be called first.
+        """
+
         # create working window and set a mouse callback to handle events
         cv2.namedWindow("Editing MaskBox", flags=cv2.WINDOW_AUTOSIZE)
         clone = self.ori_img.copy()
@@ -84,6 +115,8 @@ class Preprocessing(object):
         cv2.destroyWindow("Editing MaskBox")
     
     def removeMask(self):
+        """Create working windows to remove mask that has been set"""
+
         cv2.namedWindow("Removing MaskBox", flags=cv2.WINDOW_AUTOSIZE)
         cv2.waitKey(1)
         active = None
@@ -120,16 +153,56 @@ class Preprocessing(object):
                 break
             
             cv2.imshow("Removing MaskBox", clone)
-            # print("Mask: ", self.maskBox)
         
         cv2.destroyWindow("Removing MaskBox")
 
+    def clahe(img):
+        """Apply clahe (Contrast Limited Adaptive histogram equalization) to enhance image contrast 
+
+        Parameters
+        ----------
+        img : cv2 mat
+            The image to be processed
+
+        Returns
+        -------
+        img : cv2 mat
+            The image result
+        """
+
+        #-----Converting image to LAB Color model----------------------------------- 
+        lab= cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+
+        #-----Splitting the LAB image to different channels-------------------------
+        l, a, b = cv2.split(lab)
+
+        #-----Applying CLAHE to L-channel-------------------------------------------
+        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
+        cl = clahe.apply(l)
+
+        #-----Merge the CLAHE enhanced L-channel with the a and b channel-----------
+        limg = cv2.merge((cl,a,b))
+
+        #-----Converting image from LAB Color model to RGB model--------------------
+        final = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
+
+        return final
+
     def getCrop(self):
+        """Get list of cropped image from masking parameter and set image
+
+        Returns
+        -------
+        crop : list of cv2 mat
+            The list of cropped image
+        """
+
         crop = []
         if (len(self.maskBox) > 0):
             for box in self.maskBox:
                 try:
                     cropped = self.ori_img[box[0][1]:box[1][1], box[0][0]:box[1][0]]
+                    cropped = self.clahe(cropped)
                 except:
                     cropped = np.ones((150, 150, 3), dtype="uint8")
                 crop.append(cropped)
@@ -137,15 +210,48 @@ class Preprocessing(object):
         return crop
 
     def getMask(self):
+        """Get masking parameter
+
+        Returns
+        -------
+        maskBox list : list of tupple
+            The list of rectangular coordinate of masking box
+        """
         return self.maskBox
     
     def setMask(self, mask):
+        """Set masking parameter
+
+        Parameters
+        ----------
+        mask : list of masking box 
+            List of rectangular coordinate of masking box
+        """
         self.maskBox = mask
 
     def setImage(self, img):
+        """Set reference image
+
+        Parameters
+        ----------
+        img : cv2 mat
+            The image to be processed
+        """
         self.ori_img = img
 
     def getImage_masked(self, pred):
+        """Get reference image with masking box label
+
+        Parameters
+        ----------
+        pred : List of prediction from inference model
+            The list order must match with masking parameter
+
+        Returns
+        -------
+        frame : cv2 mat
+            The image with masking box label
+        """
         frame = self.ori_img.copy()
 
         if (len(self.maskBox) > 0) and (len(pred) > 0):
